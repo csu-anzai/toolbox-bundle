@@ -1,0 +1,31 @@
+{
+  "name": "atournayre/toolbox-bundle",
+  "description": "ToolboxBundle pour Symfony 4",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aurélien Tournayre",
+      "email": "aurelien.tournayre@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Atournayre\\ToolboxBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Atournayre\\ToolboxBundle\\Tests\\": "Tests/"
+    }
+  },
+  "require": {
+    "php": "^7.2.9"
+  },
+  "require-dev": {
+    "symfony/phpunit-bridge": "^4.3"
+  }
+}
