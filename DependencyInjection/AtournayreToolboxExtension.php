@@ -2,7 +2,8 @@
 
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
-use Atournayre\ToolboxBundle\Service\Date\DateFormat;
+use Atournayre\ToolboxBundle\Service\Date\DateService;
+use Atournayre\ToolboxBundle\Service\Excel\Excel;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
@@ -27,7 +28,8 @@ class AtournayreToolboxExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->dateServices($container, $config['date']);
+        $this->dateServices($container);
+        $this->excelServices($container);
     }
 
     /**
@@ -40,19 +42,33 @@ class AtournayreToolboxExtension extends Extension
 
     /**
      * @param ContainerBuilder $container
-     * @param array            $config
      */
-    public function dateServices(ContainerBuilder $container, array $config): void
+    public function dateServices(ContainerBuilder $container): void
     {
         $container->setDefinition(
-            'atournayre_toolbox.date.format',
-            new Definition(
-                DateFormat::class,
-                [
-                    $config['empty_value'],
-                    $config['simple_format'],
-                ]
-            )
+            $this->setDefinitionId('date'),
+            new Definition(DateService::class)
         );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    public function excelServices(ContainerBuilder $container): void
+    {
+        $container->setDefinition(
+            $this->setDefinitionId('excel'),
+            new Definition(Excel::class)
+        );
+    }
+
+    /**
+     * @param string $suffix
+     *
+     * @return string
+     */
+    private function setDefinitionId(string $suffix): string
+    {
+        return $this->getAlias().'.'.$suffix;
     }
 }
