@@ -2,6 +2,7 @@
 
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -18,8 +19,60 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('atournayre_toolbox');
+        $rootNode = $treeBuilder->root('atournayre_toolbox');
+
+        $this->googleConfiguration($rootNode);
 
         return $treeBuilder;
+    }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    private function googleConfiguration(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('google')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('timezone')
+                            ->defaultValue($this->googleDefaultTimezone())
+                        ->end()
+                        ->arrayNode('calendar')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('allowed_role')
+                                    ->defaultValue('owner')
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('client')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('application_name')
+                                    ->defaultValue('Application')
+                                ->end()
+                                ->scalarNode('configuration_directory')
+                                    ->defaultValue('/config/google')
+                                ->end()
+                                ->scalarNode('project_directory')
+                                    ->defaultValue('%kernel.project_dir%')
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @return string
+     */
+    private function googleDefaultTimezone(): string
+    {
+        return !empty(ini_get('date.timezone'))
+            ? ini_get('date.timezone')
+            : 'Europe/Paris';
     }
 }

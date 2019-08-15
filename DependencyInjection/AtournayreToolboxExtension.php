@@ -2,11 +2,16 @@
 
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
+use App\Service\Google\GoogleCalendarService;
+use App\Service\Google\GoogleClientService;
 use Atournayre\ToolboxBundle\Service\Date\DateService;
 use Atournayre\ToolboxBundle\Service\Excel\Excel;
+use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService;
+use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleDateService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -30,6 +35,7 @@ class AtournayreToolboxExtension extends Extension
 
         $this->dateServices($container);
         $this->excelServices($container);
+        $this->googleServices($container, $config['google']);
     }
 
     /**
@@ -59,6 +65,47 @@ class AtournayreToolboxExtension extends Extension
         $container->setDefinition(
             $this->setDefinitionId('excel'),
             new Definition(Excel::class)
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    public function googleServices(ContainerBuilder $container, array $config): void
+    {
+        $container->setDefinition(
+            $this->setDefinitionId('google.date'),
+            new Definition(
+                GoogleDateService::class,
+                [$config['timezone']]
+            )
+        );
+        $container->setDefinition(
+            $this->setDefinitionId('google.calendar.event'),
+            new Definition(GoogleCalendarEventService::class)
+        );
+        $container->setDefinition(
+            $this->setDefinitionId('google.calendar'),
+            new Definition(
+                GoogleCalendarService::class,
+                [
+                    GoogleClientService::class,
+                    $config['calendar']['allowed_role']
+                ]
+            )
+        );
+        $container->setDefinition(
+            $this->setDefinitionId('google.client'),
+            new Definition(
+                GoogleClientService::class,
+                [
+                    $config['client']['application_name'],
+                    $config['client']['configuration_directory'],
+                    $config['client']['project_directory'],
+                    Filesystem::class
+                ]
+            )
         );
     }
 
