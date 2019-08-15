@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Google;
+namespace Atournayre\ToolboxBundle\Service\Google\Calendar;
 
 use Google_Exception;
 use Google_Service_Calendar;

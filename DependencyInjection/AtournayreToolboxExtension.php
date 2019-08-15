@@ -2,11 +2,11 @@
 
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
-use App\Service\Google\GoogleCalendarService;
-use App\Service\Google\GoogleClientService;
 use Atournayre\ToolboxBundle\Service\Date\DateService;
 use Atournayre\ToolboxBundle\Service\Excel\Excel;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService;
+use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService;
+use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleDateService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
