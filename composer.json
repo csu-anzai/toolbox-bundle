@@ -24,7 +24,8 @@
   },
   "require": {
     "php": "^7.2.9",
-    "nesbot/carbon": "^2.23"
+    "nesbot/carbon": "^2.23",
+    "phpoffice/phpspreadsheet": "^1.8"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.3",
