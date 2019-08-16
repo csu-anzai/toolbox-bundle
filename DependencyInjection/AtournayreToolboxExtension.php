@@ -3,11 +3,13 @@
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
 use Atournayre\ToolboxBundle\Service\Date\DateService;
+use Atournayre\ToolboxBundle\Service\Email\SwiftMailerService;
 use Atournayre\ToolboxBundle\Service\Excel\Excel;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleDateService;
+use Swift_Mailer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
@@ -36,6 +38,7 @@ class AtournayreToolboxExtension extends Extension
         $this->dateServices($container);
         $this->excelServices($container);
         $this->googleServices($container, $config['google']);
+        $this->emailServices($container, $config['email']);
     }
 
     /**
@@ -151,6 +154,30 @@ class AtournayreToolboxExtension extends Extension
                     new Definition(Filesystem::class)
                 ]
             )
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function emailServices(ContainerBuilder $container, array $config)
+    {
+        $container->setDefinition(
+            $this->prefixAtournayreToolbox('email.swiftmailer.service'),
+            new Definition(
+                SwiftMailerService::class,
+                [
+                    new Definition(Swift_Mailer::class),
+                    $config['noreply'],
+                ]
+            )
+        );
+        $container->setDefinition(
+            $this->prefixAtournayreToolbox('email.service'),
+            (new Definition(SwiftMailerService::class))
+                ->setAbstract(true)
+                ->setProperty('alias', $this->prefixAtournayreToolbox('email.swiftmailer.service'))
         );
     }
 }
