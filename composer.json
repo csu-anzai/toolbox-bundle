@@ -27,7 +27,8 @@
     "nesbot/carbon": "^2.23",
     "phpoffice/phpspreadsheet": "^1.8",
     "google/apiclient": "^2.2",
-    "ext-json": "*"
+    "ext-json": "*",
+    "symfony/swiftmailer-bundle": "^3.2"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.3",

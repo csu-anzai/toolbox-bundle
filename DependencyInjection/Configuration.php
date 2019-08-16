@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('atournayre_toolbox');
 
         $this->googleConfiguration($rootNode);
+        $this->emailConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -74,5 +75,23 @@ class Configuration implements ConfigurationInterface
         return !empty(ini_get('date.timezone'))
             ? ini_get('date.timezone')
             : 'Europe/Paris';
+    }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    private function emailConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('email')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('noreply')
+                            ->defaultValue('noreply@example.com')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }
