@@ -8,6 +8,10 @@ services:
   Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService: '@atournayre_toolbox.google.calendar.event'
   Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService: '@atournayre_toolbox.google.client'
 
-  Atournayre\ToolboxBundle\Service\Email\EmailInterface: '@atournayre_toolbox.email'
-  atournayre_toolbox.email:
+  Atournayre\ToolboxBundle\Service\Email\SwiftMailerService:
     class: Atournayre\ToolboxBundle\Service\Email\SwiftMailerService
+    arguments:
+      - '@swiftmailer.mailer.default'
+      - '%atournayre_toolbox.email.noreply%'
+
+  Atournayre\ToolboxBundle\Service\Email\EmailInterface: '@Atournayre\ToolboxBundle\Service\Email\SwiftMailerService'

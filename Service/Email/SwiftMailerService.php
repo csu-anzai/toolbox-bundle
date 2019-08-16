@@ -14,13 +14,20 @@ class SwiftMailerService implements EmailInterface
     private $mailerService;
 
     /**
+     * @var string
+     */
+    private $noreply;
+
+    /**
      * SwiftMailerService constructor.
      *
      * @param Swift_Mailer $mailerService
+     * @param string       $noreply
      */
-    public function __construct(Swift_Mailer $mailerService)
+    public function __construct(Swift_Mailer $mailerService, string $noreply)
     {
         $this->mailerService = $mailerService;
+        $this->noreply = $noreply;
     }
 
     /**
@@ -34,7 +41,8 @@ class SwiftMailerService implements EmailInterface
     {
         return (new Swift_Message($subject))
             ->setFrom($from)
-            ->setBody($body);
+            ->setBody($body)
+            ->setReplyTo($this->noreply);
     }
 
     /**

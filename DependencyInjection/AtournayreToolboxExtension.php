@@ -3,7 +3,6 @@
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
 use Atournayre\ToolboxBundle\Service\Date\DateService;
-use Atournayre\ToolboxBundle\Service\Email\EmailInterface;
 use Atournayre\ToolboxBundle\Service\Excel\Excel;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService;
@@ -37,7 +36,6 @@ class AtournayreToolboxExtension extends Extension
         $this->dateServices($container);
         $this->excelServices($container);
         $this->googleServices($container, $config['google']);
-        $this->emailServices($container, $config['email']);
     }
 
     /**
@@ -154,19 +152,5 @@ class AtournayreToolboxExtension extends Extension
                 ]
             )
         );
-    }
-
-    private function emailServices(ContainerBuilder $container, array $config): void
-    {
-        $container->setDefinition(
-            $this->prefixAtournayreToolbox('email'),
-            new Definition(
-                EmailInterface::class,
-                [
-                    $config['noreply'],
-                ]
-            )
-        );
-
     }
 }
