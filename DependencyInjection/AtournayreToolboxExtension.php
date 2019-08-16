@@ -185,7 +185,7 @@ class AtournayreToolboxExtension extends Extension
             $configGoogleClient['project_directory']
         );
         $container->setParameter(
-            $this->prefixAtournayreToolbox('email.client.noreply'),
+            $this->prefixAtournayreToolbox('email.noreply'),
             $config['email']['noreply']
         );
     }
