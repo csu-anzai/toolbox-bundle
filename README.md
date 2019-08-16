@@ -23,3 +23,6 @@ Pick only services you want to use.
 
 ## Continuous Integration
 <img src="https://travis-ci.com/atournayre/toolbox-bundle.svg?branch=master" />
+
+## Code Quality
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3b38b47687f744b2b5c18b1035d9a2d8)](https://www.codacy.com/app/atournayre/toolbox-bundle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=atournayre/toolbox-bundle&amp;utm_campaign=Badge_Grade)

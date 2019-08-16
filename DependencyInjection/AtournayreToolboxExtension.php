@@ -52,7 +52,7 @@ class AtournayreToolboxExtension extends Extension
     public function dateServices(ContainerBuilder $container): void
     {
         $container->setDefinition(
-            $this->setDefinitionId('date'),
+            $this->prefixAtournayreToolbox('date'),
             new Definition(DateService::class)
         );
     }
@@ -63,7 +63,7 @@ class AtournayreToolboxExtension extends Extension
     public function excelServices(ContainerBuilder $container): void
     {
         $container->setDefinition(
-            $this->setDefinitionId('excel'),
+            $this->prefixAtournayreToolbox('excel'),
             new Definition(Excel::class)
         );
     }
@@ -74,39 +74,10 @@ class AtournayreToolboxExtension extends Extension
      */
     public function googleServices(ContainerBuilder $container, array $config): void
     {
-        $container->setDefinition(
-            $this->setDefinitionId('google.date'),
-            new Definition(
-                GoogleDateService::class,
-                [$config['timezone']]
-            )
-        );
-        $container->setDefinition(
-            $this->setDefinitionId('google.calendar.event'),
-            new Definition(GoogleCalendarEventService::class)
-        );
-        $container->setDefinition(
-            $this->setDefinitionId('google.calendar'),
-            new Definition(
-                GoogleCalendarService::class,
-                [
-                    GoogleClientService::class,
-                    $config['calendar']['allowed_role']
-                ]
-            )
-        );
-        $container->setDefinition(
-            $this->setDefinitionId('google.client'),
-            new Definition(
-                GoogleClientService::class,
-                [
-                    $config['client']['application_name'],
-                    $config['client']['configuration_directory'],
-                    $config['client']['project_directory'],
-                    Filesystem::class
-                ]
-            )
-        );
+        $this->definitionGoogleDate($container, $config);
+        $this->definitionGoogleCalendarEvent($container);
+        $this->definitionGoogleCalendar($container, $config);
+        $this->definitionGoogleClient($container, $config);
     }
 
     /**
@@ -114,8 +85,72 @@ class AtournayreToolboxExtension extends Extension
      *
      * @return string
      */
-    private function setDefinitionId(string $suffix): string
+    private function prefixAtournayreToolbox(string $suffix): string
     {
         return $this->getAlias().'.'.$suffix;
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function definitionGoogleDate(ContainerBuilder $container, array $config): void
+    {
+        $container->setDefinition(
+            $this->prefixAtournayreToolbox('google.date'),
+            new Definition(
+                GoogleDateService::class,
+                [$config['timezone']]
+            )
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function definitionGoogleCalendarEvent(ContainerBuilder $container): void
+    {
+        $container->setDefinition(
+            $this->prefixAtournayreToolbox('google.calendar.event'),
+            new Definition(GoogleCalendarEventService::class)
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function definitionGoogleCalendar(ContainerBuilder $container, array $config): void
+    {
+        $container->setDefinition(
+            $this->prefixAtournayreToolbox('google.calendar'),
+            new Definition(
+                GoogleCalendarService::class,
+                [
+                    new Definition(GoogleClientService::class),
+                    $config['calendar']['allowed_role']
+                ]
+            )
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function definitionGoogleClient(ContainerBuilder $container, array $config): void
+    {
+        $container->setDefinition(
+            $this->prefixAtournayreToolbox('google.client'),
+            new Definition(
+                GoogleClientService::class,
+                [
+                    $config['client']['application_name'],
+                    $config['client']['configuration_directory'],
+                    $config['client']['project_directory'],
+                    new Definition(Filesystem::class)
+                ]
+            )
+        );
     }
 }
