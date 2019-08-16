@@ -1,12 +1,12 @@
 # ToolboxBundle for Symfony 4
 ## Services
 
-| Services | Description |
-|---|---|
-| Date | Carbon with additional methods |
-| Excel | Create and manage Excel files |
-| File | Create and manage files |
-| Google | Connect to Google Calendar API |
+| Services | Description                    |
+|---       |---                             |
+| Date     | Carbon with additional methods |
+| Excel    | Create and manage Excel files  |
+| File     | Create and manage files        |
+| Google   | Connect to Google Calendar API |
 
 ## Service declaration
 In `config/services.yaml`
