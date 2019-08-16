@@ -168,16 +168,23 @@ class AtournayreToolboxExtension extends Extension
             new Definition(
                 SwiftMailerService::class,
                 [
-                    new Definition(Swift_Mailer::class),
+                    $this->definitionSwiftMailer(),
                     $config['noreply'],
                 ]
             )
         );
-        $container->setDefinition(
-            $this->prefixAtournayreToolbox('email.service'),
-            (new Definition(SwiftMailerService::class))
-                ->setAbstract(true)
-                ->setProperty('alias', $this->prefixAtournayreToolbox('email.swiftmailer.service'))
+    }
+
+    /**
+     * @return Definition
+     */
+    private function definitionSwiftMailer(): Definition
+    {
+        return new Definition(
+            Swift_Mailer::class,
+            [
+                new Definition(\Swift_SmtpTransport::class)
+            ]
         );
     }
 }

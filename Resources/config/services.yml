@@ -7,3 +7,5 @@ services:
   Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService: '@atournayre_toolbox.google.calendar'
   Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService: '@atournayre_toolbox.google.calendar.event'
   Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService: '@atournayre_toolbox.google.client'
+
+  Atournayre\ToolboxBundle\Service\Email\EmailInterface: '@atournayre_toolbox.email.swift_mailer.service'
