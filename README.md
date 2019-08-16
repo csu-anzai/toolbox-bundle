@@ -19,7 +19,7 @@ Pick only services you want to use.
     Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleDateService: '@atournayre_toolbox.google.date'
     Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService: '@atournayre_toolbox.google.calendar'
     Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService: '@atournayre_toolbox.google.calendar.event'
-    Atournayre\ToolboxBundle\Service\\Google\Calendar\GoogleClientService: '@atournayre_toolbox.google.client'
+    Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService: '@atournayre_toolbox.google.client'
 
 ## Continuous Integration
 <img src="https://travis-ci.com/atournayre/toolbox-bundle.svg?branch=master" />
