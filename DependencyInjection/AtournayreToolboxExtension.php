@@ -11,7 +11,6 @@ use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleDateService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -79,7 +78,6 @@ class AtournayreToolboxExtension extends Extension
         $this->definitionGoogleDate($container, $config);
         $this->definitionGoogleCalendarEvent($container);
         $this->definitionGoogleCalendar($container, $config);
-        $this->definitionGoogleClient($container, $config);
     }
 
     /**
@@ -140,26 +138,6 @@ class AtournayreToolboxExtension extends Extension
      * @param ContainerBuilder $container
      * @param array            $config
      */
-    private function definitionGoogleClient(ContainerBuilder $container, array $config): void
-    {
-        $container->setDefinition(
-            $this->prefixAtournayreToolbox('google.client'),
-            new Definition(
-                GoogleClientService::class,
-                [
-                    $config['client']['application_name'],
-                    $config['client']['configuration_directory'],
-                    $config['client']['project_directory'],
-                    new Definition(Filesystem::class)
-                ]
-            )
-        );
-    }
-
-    /**
-     * @param ContainerBuilder $container
-     * @param array            $config
-     */
     private function setParameters(ContainerBuilder $container, array $config): void
     {
         $configGoogle = $config['google'];
@@ -179,10 +157,6 @@ class AtournayreToolboxExtension extends Extension
         $container->setParameter(
             $this->prefixAtournayreToolbox('google.client.configuration_directory'),
             $configGoogleClient['configuration_directory']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('google.client.project_directory'),
-            $configGoogleClient['project_directory']
         );
         $container->setParameter(
             $this->prefixAtournayreToolbox('email.noreply'),

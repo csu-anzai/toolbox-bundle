@@ -29,7 +29,7 @@ class GoogleClientService
     /**
      * @var string
      */
-    private $configurationDirectory;
+    private $configDirectory;
 
     /**
      * @var string
@@ -45,18 +45,18 @@ class GoogleClientService
      * GoogleClientService constructor.
      *
      * @param string     $applicationName
-     * @param string     $configurationDirectory
+     * @param string     $configDirectory
      * @param string     $projectDirectory
      * @param Filesystem $filesystem
      */
     public function __construct(
         string $applicationName,
-        string $configurationDirectory,
+        string $configDirectory,
         string $projectDirectory,
         Filesystem $filesystem
     ) {
         $this->applicationName = $applicationName;
-        $this->configurationDirectory = $configurationDirectory;
+        $this->configDirectory = $configDirectory;
         $this->projectDirectory = $projectDirectory;
         $this->filesystem = $filesystem;
     }
@@ -95,7 +95,7 @@ class GoogleClientService
      */
     public function credentialsFilePath(): string
     {
-        return $this->projectDirectory . $this->configurationDirectory . DIRECTORY_SEPARATOR . self::CREDENTIALS_JSON;
+        return $this->projectDirectory . $this->configDirectory . DIRECTORY_SEPARATOR . self::CREDENTIALS_JSON;
     }
 
     /**
@@ -103,7 +103,7 @@ class GoogleClientService
      */
     public function getTokenFilePath(): string
     {
-        return $this->projectDirectory . $this->configurationDirectory . DIRECTORY_SEPARATOR . self::TOKEN_JSON;
+        return $this->projectDirectory . $this->configDirectory . DIRECTORY_SEPARATOR . self::TOKEN_JSON;
     }
 
     /**
