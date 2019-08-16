@@ -3,13 +3,11 @@
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
 use Atournayre\ToolboxBundle\Service\Date\DateService;
-use Atournayre\ToolboxBundle\Service\Email\SwiftMailerService;
 use Atournayre\ToolboxBundle\Service\Excel\Excel;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService;
 use Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleDateService;
-use Swift_Mailer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
@@ -38,7 +36,8 @@ class AtournayreToolboxExtension extends Extension
         $this->dateServices($container);
         $this->excelServices($container);
         $this->googleServices($container, $config['google']);
-        $this->emailServices($container, $config['email']);
+
+        $this->setParameters($container, $config);
     }
 
     /**
@@ -161,30 +160,33 @@ class AtournayreToolboxExtension extends Extension
      * @param ContainerBuilder $container
      * @param array            $config
      */
-    private function emailServices(ContainerBuilder $container, array $config)
+    private function setParameters(ContainerBuilder $container, array $config): void
     {
-        $container->setDefinition(
-            $this->prefixAtournayreToolbox('email.swiftmailer.service'),
-            new Definition(
-                SwiftMailerService::class,
-                [
-                    $this->definitionSwiftMailer(),
-                    $config['noreply'],
-                ]
-            )
+        $configGoogle = $config['google'];
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('google.timezone'),
+            $configGoogle['timezone']
         );
-    }
-
-    /**
-     * @return Definition
-     */
-    private function definitionSwiftMailer(): Definition
-    {
-        return new Definition(
-            Swift_Mailer::class,
-            [
-                new Definition(\Swift_SmtpTransport::class)
-            ]
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('google.calendar.allowed_role'),
+            $configGoogle['calendar']['allowed_role']
+        );
+        $configGoogleClient = $configGoogle['client'];
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('google.client.application_name'),
+            $configGoogleClient['application_name']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('google.client.configuration_directory'),
+            $configGoogleClient['configuration_directory']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('google.client.project_directory'),
+            $configGoogleClient['project_directory']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('email.client.noreply'),
+            $config['email']['noreply']
         );
     }
 }
