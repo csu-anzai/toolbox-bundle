@@ -12,3 +12,4 @@
 | File                  | Create and manage files        |
 | Google                | Connect to Google Calendar API |
 | Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions) |
+| PDF                   | Integration of Html2Pdf        |

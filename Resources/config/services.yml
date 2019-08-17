@@ -28,3 +28,8 @@ services:
       - '%atournayre_toolbox.email.noreply%'
 
   Atournayre\ToolboxBundle\Service\Email\EmailInterface: '@atournayre_toolbox.email.swiftmailer.service'
+
+  atournayre_toolbox.pdf.html2pdf.service:
+    class: Atournayre\ToolboxBundle\Service\Pdf\Html2PdfGenerator
+
+  Atournayre\ToolboxBundle\Service\Pdf\PdfGeneratorInterface: '@atournayre_toolbox.pdf.html2pdf.service'
