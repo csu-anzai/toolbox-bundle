@@ -4,9 +4,10 @@
 
 ## Services
 
-| Services | Description                    |
-|---       |---                             |
-| Date     | Carbon with additional methods |
-| Excel    | Create and manage Excel files  |
-| File     | Create and manage files        |
-| Google   | Connect to Google Calendar API |
+| Services              | Description                    |
+|---                    |---                             |
+| Date                  | Carbon with additional methods |
+| Excel                 | Create and manage Excel files  |
+| File                  | Create and manage files        |
+| Google                | Connect to Google Calendar API |
+| Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions) |
