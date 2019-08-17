@@ -8,6 +8,7 @@
 |---                    |---                             |
 | Date                  | Carbon with additional methods |
 | Excel                 | Create and manage Excel files  |
+| Email                 | Send mail using Swiftmailer    |
 | File                  | Create and manage files        |
 | Google                | Connect to Google Calendar API |
 | Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions) |
