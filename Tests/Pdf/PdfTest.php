@@ -10,7 +10,14 @@ class PdfTest extends TestCase
 {
     public function testCreate()
     {
-        $html2PdfGenerator = new Html2PdfGenerator();
+        $html2PdfGenerator = new Html2PdfGenerator(
+            'P',
+            'A4',
+            'fr',
+            true,
+            'UTF-8',
+            [0, 0, 0, 0]
+        );
         $this->assertInstanceOf(Html2Pdf::class, $html2PdfGenerator->create());
     }
 }
