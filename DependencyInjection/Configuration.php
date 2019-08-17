@@ -91,4 +91,42 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
     }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    private function pdfConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('pdf')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('orientation')
+                            ->defaultValue('P')
+                        ->end()
+                        ->scalarNode('format')
+                            ->defaultValue('A4')
+                        ->end()
+                        ->scalarNode('language')
+                            ->defaultValue('fr')
+                        ->end()
+                        ->scalarNode('unicode')
+                            ->defaultTrue()
+                        ->end()
+                        ->scalarNode('encoding')
+                            ->defaultValue('UTF-8')
+                        ->end()
+                        ->arrayNode('margins')
+                            ->children()
+                                ->scalarNode(0)->defaultValue(0)->end()
+                                ->scalarNode(1)->defaultValue(0)->end()
+                                ->scalarNode(2)->defaultValue(0)->end()
+                                ->scalarNode(3)->defaultValue(0)->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
 }

@@ -26,7 +26,7 @@ class AtournayreToolboxExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
         $configuration = $this->getConfiguration($configs, $container);
@@ -87,7 +87,7 @@ class AtournayreToolboxExtension extends Extension
      */
     private function prefixAtournayreToolbox(string $suffix): string
     {
-        return $this->getAlias().'.'.$suffix;
+        return $this->getAlias() . '.' . $suffix;
     }
 
     /**
@@ -128,7 +128,7 @@ class AtournayreToolboxExtension extends Extension
                 GoogleCalendarService::class,
                 [
                     new Definition(GoogleClientService::class),
-                    $config['calendar']['allowed_role']
+                    $config['calendar']['allowed_role'],
                 ]
             )
         );
@@ -161,6 +161,39 @@ class AtournayreToolboxExtension extends Extension
         $container->setParameter(
             $this->prefixAtournayreToolbox('email.noreply'),
             $config['email']['noreply']
+        );
+        $this->setPdfParameters($container, $config);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function setPdfParameters(ContainerBuilder $container, array $config): void
+    {
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('pdf.orientation'),
+            $config['pdf']['orientation']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('pdf.format'),
+            $config['pdf']['format']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('pdf.language'),
+            $config['pdf']['language']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('pdf.unicode'),
+            $config['pdf']['unicode']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('pdf.encoding'),
+            $config['pdf']['encoding']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('pdf.margins'),
+            $config['pdf']['margins']
         );
     }
 }

@@ -6,25 +6,6 @@ interface PdfGeneratorInterface
 {
     const EXTENSION = '.pdf';
 
-    const PORTRAIT_ORIENTATION  = 'P';
-    const LANDSCAPE_ORIENTATION = 'L';
-    const DEFAULT_ORIENTATION   = self::PORTRAIT_ORIENTATION;
-
-    const DEFAULT_FORMAT = 'A4';
-
-    const DEFAULT_LANGUAGE = 'fr';
-
-    const DEFAULT_UNICODE = true;
-
-    const DEFAULT_ENCODING = "UTF-8";
-
-    const DEFAULT_MARGINS = [
-        0,
-        0,
-        0,
-        0,
-    ];
-
     /**
      *  I : send the file inline to the browser (default). The plug-in is used if available. The name given by name is
      *  used when one selects the "Save as" option on the link generating the PDF. D : send to the browser and force a
@@ -43,23 +24,9 @@ interface PdfGeneratorInterface
     const OUTPUT_FOR_EMAIL         = 'E';
 
     /**
-     * @param string $orientation
-     * @param string $format
-     * @param string $language
-     * @param bool   $unicode
-     * @param string $encoding
-     * @param array  $margins
-     *
      * @return mixed
      */
-    public function create(
-        string $orientation = self::DEFAULT_ORIENTATION,
-        string $format = self::DEFAULT_FORMAT,
-        string $language = self::DEFAULT_LANGUAGE,
-        bool $unicode = self::DEFAULT_UNICODE,
-        string $encoding = self::DEFAULT_ENCODING,
-        array $margins = self::DEFAULT_MARGINS
-    );
+    public function create();
 
     /**
      * @param mixed  $pdf

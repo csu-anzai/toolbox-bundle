@@ -31,5 +31,12 @@ services:
 
   atournayre_toolbox.pdf.html2pdf.service:
     class: Atournayre\ToolboxBundle\Service\Pdf\Html2PdfGenerator
+    arguments:
+      - '%atournayre_toolbox.pdf.orientation%'
+      - '%atournayre_toolbox.pdf.format%'
+      - '%atournayre_toolbox.pdf.language%'
+      - '%atournayre_toolbox.pdf.unicode%'
+      - '%atournayre_toolbox.pdf.encoding%'
+      - '%atournayre_toolbox.pdf.margins%'
 
   Atournayre\ToolboxBundle\Service\Pdf\PdfGeneratorInterface: '@atournayre_toolbox.pdf.html2pdf.service'

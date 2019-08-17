@@ -8,30 +8,72 @@ use Spipu\Html2Pdf\Html2Pdf;
 class Html2PdfGenerator implements PdfGeneratorInterface
 {
     /**
+     * @var string
+     */
+    private $orientation;
+
+    /**
+     * @var string
+     */
+    private $format;
+
+    /**
+     * @var string
+     */
+    private $language;
+
+    /**
+     * @var string
+     */
+    private $unicode;
+
+    /**
+     * @var string
+     */
+    private $encoding;
+
+    /**
+     * @var array
+     */
+    private $margins;
+
+    /**
+     * Html2PdfGenerator constructor.
+     *
      * @param string $orientation
      * @param string $format
      * @param string $language
-     * @param bool   $unicode
+     * @param string $unicode
      * @param string $encoding
-     * @param array  $margins
-     *
-     * @return Html2Pdf
+     * @param array $margins
      */
-    public function create(
-        string $orientation = self::DEFAULT_ORIENTATION,
-        string $format = self::DEFAULT_FORMAT,
-        string $language = self::DEFAULT_LANGUAGE,
-        bool $unicode = self::DEFAULT_UNICODE,
-        string $encoding = self::DEFAULT_ENCODING,
-        array $margins = self::DEFAULT_MARGINS
+    public function __construct(
+        string $orientation,
+        string $format,
+        string $language,
+        string $unicode,
+        string $encoding,
+        array $margins
     ) {
+        $this->orientation = $orientation;
+        $this->format = $format;
+        $this->language = $language;
+        $this->unicode = $unicode;
+        $this->encoding = $encoding;
+        $this->margins = $margins;
+    }
+
+    /**
+     * @return mixed|Html2Pdf
+     */
+    public function create() {
         return new Html2Pdf(
-            $orientation,
-            $format,
-            $language,
-            $unicode,
-            $encoding,
-            $margins
+            $this->orientation,
+            $this->format,
+            $this->language,
+            $this->unicode,
+            $this->encoding,
+            $this->margins
         );
     }
 
