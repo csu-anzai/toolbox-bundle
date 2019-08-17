@@ -4,10 +4,16 @@ services:
   Atournayre\ToolboxBundle\Service\Excel\Excel: '@atournayre_toolbox.excel'
 
   Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleDateService: '@atournayre_toolbox.google.date'
-  Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService: '@atournayre_toolbox.google.calendar'
+
+  Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService:
+    class: Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarService
+    arguments:
+      - '@Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService'
+      - '%atournayre_toolbox.google.calendar.allowed_role%'
+
   Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleCalendarEventService: '@atournayre_toolbox.google.calendar.event'
 
-  atournayre_toolbox.google.client:
+  Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService:
     class: Atournayre\ToolboxBundle\Service\Google\Calendar\GoogleClientService
     arguments:
       - '%atournayre_toolbox.google.client.application_name%'
