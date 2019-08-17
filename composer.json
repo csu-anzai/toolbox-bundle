@@ -13,6 +13,9 @@
     "psr-4": {
       "Atournayre\\ToolboxBundle\\": ""
     },
+    "classmap": [
+      "vendor/google/apiclient/src/Google"
+    ],
     "exclude-from-classmap": [
       "/Tests/"
     ]
@@ -28,7 +31,8 @@
     "phpoffice/phpspreadsheet": "^1.8",
     "google/apiclient": "^2.2",
     "ext-json": "*",
-    "symfony/swiftmailer-bundle": "^3.2"
+    "symfony/swiftmailer-bundle": "^3.2",
+    "beberlei/doctrineextensions": "^1.2"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.3",
