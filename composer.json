@@ -13,9 +13,6 @@
     "psr-4": {
       "Atournayre\\ToolboxBundle\\": ""
     },
-    "classmap": [
-      "vendor/google/apiclient/src/Google"
-    ],
     "exclude-from-classmap": [
       "/Tests/"
     ]
