@@ -119,6 +119,7 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue('UTF-8')
                         ->end()
                         ->arrayNode('margins')
+                            ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode(0)->defaultValue(0)->end()
                                 ->scalarNode(1)->defaultValue(0)->end()
