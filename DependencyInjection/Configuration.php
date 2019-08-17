@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
 
         $this->googleConfiguration($rootNode);
         $this->emailConfiguration($rootNode);
+        $this->pdfConfiguration($rootNode);
 
         return $treeBuilder;
     }
