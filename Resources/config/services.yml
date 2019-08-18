@@ -40,3 +40,12 @@ services:
       - '%atournayre_toolbox.pdf.margins%'
 
   Atournayre\ToolboxBundle\Service\Pdf\PdfGeneratorInterface: '@atournayre_toolbox.pdf.html2pdf.service'
+
+  Atournayre\ToolboxBundle\Service\Numbering\Numbering:
+    class: Atournayre\ToolboxBundle\Service\Numbering\Numbering
+    arguments:
+      - '%atournayre_toolbox.numbering.pad_length%'
+      - '%atournayre_toolbox.numbering.pad_string%'
+      - '%atournayre_toolbox.numbering.pad_type%'
+      - '%atournayre_toolbox.numbering.prefix%'
+      - '%atournayre_toolbox.numbering.suffix%'

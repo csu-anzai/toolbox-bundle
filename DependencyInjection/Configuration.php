@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
         $this->googleConfiguration($rootNode);
         $this->emailConfiguration($rootNode);
         $this->pdfConfiguration($rootNode);
+        $this->numberingConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -126,6 +127,35 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode(2)->defaultValue(0)->end()
                                 ->scalarNode(3)->defaultValue(0)->end()
                             ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    private function numberingConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('numbering')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('pad_length')
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('pad_string')
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('pad_type')
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('prefix')
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('suffix')
+                            ->defaultNull()
                         ->end()
                     ->end()
                 ->end()

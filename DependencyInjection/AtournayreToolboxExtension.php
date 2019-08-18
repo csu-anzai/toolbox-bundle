@@ -163,6 +163,7 @@ class AtournayreToolboxExtension extends Extension
             $config['email']['noreply']
         );
         $this->setPdfParameters($container, $config);
+        $this->setNumberingParameters($container, $config);
     }
 
     /**
@@ -171,29 +172,41 @@ class AtournayreToolboxExtension extends Extension
      */
     private function setPdfParameters(ContainerBuilder $container, array $config): void
     {
+        $configPdf = $config['pdf'];
+        $container->setParameter($this->prefixAtournayreToolbox('pdf.orientation'), $configPdf['orientation']);
+        $container->setParameter($this->prefixAtournayreToolbox('pdf.format'), $configPdf['format']);
+        $container->setParameter($this->prefixAtournayreToolbox('pdf.language'), $configPdf['language']);
+        $container->setParameter($this->prefixAtournayreToolbox('pdf.unicode'), $configPdf['unicode']);
+        $container->setParameter($this->prefixAtournayreToolbox('pdf.encoding'), $configPdf['encoding']);
+        $container->setParameter($this->prefixAtournayreToolbox('pdf.margins'), $configPdf['margins']);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function setNumberingParameters(ContainerBuilder $container, array $config): void
+    {
+        $configNumbering = $config['numbering'];
         $container->setParameter(
-            $this->prefixAtournayreToolbox('pdf.orientation'),
-            $config['pdf']['orientation']
+            $this->prefixAtournayreToolbox('numbering.pad_length'),
+            $configNumbering['pad_length']
         );
         $container->setParameter(
-            $this->prefixAtournayreToolbox('pdf.format'),
-            $config['pdf']['format']
+            $this->prefixAtournayreToolbox('numbering.pad_string'),
+            $configNumbering['pad_string']
         );
         $container->setParameter(
-            $this->prefixAtournayreToolbox('pdf.language'),
-            $config['pdf']['language']
+            $this->prefixAtournayreToolbox('numbering.pad_type'),
+            $configNumbering['pad_type']
         );
         $container->setParameter(
-            $this->prefixAtournayreToolbox('pdf.unicode'),
-            $config['pdf']['unicode']
+            $this->prefixAtournayreToolbox('numbering.prefix'),
+            $configNumbering['prefix']
         );
         $container->setParameter(
-            $this->prefixAtournayreToolbox('pdf.encoding'),
-            $config['pdf']['encoding']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('pdf.margins'),
-            $config['pdf']['margins']
+            $this->prefixAtournayreToolbox('numbering.suffix'),
+            $configNumbering['suffix']
         );
     }
 }
