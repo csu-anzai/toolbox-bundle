@@ -151,7 +151,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('pad_type')
                             ->defaultNull()
                             ->validate()
-                                ->ifNotInArray([STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH])
+                                ->ifNotInArray(['STR_PAD_LEFT', 'STR_PAD_RIGHT', 'STR_PAD_BOTH'])
                                 ->thenInvalid('Invalid constant %s')
                             ->end()
                         ->end()
