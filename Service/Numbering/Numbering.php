@@ -15,7 +15,7 @@ class Numbering
     private $padString;
 
     /**
-     * @var int
+     * @var string
      */
     private $padType;
 
@@ -34,14 +34,14 @@ class Numbering
      *
      * @param int|null    $padLength
      * @param string|null $padString
-     * @param int|null    $padType
+     * @param string|null $padType
      * @param string|null $prefix
      * @param string|null $suffix
      */
     public function __construct(
         ?int $padLength = null,
         ?string $padString = null,
-        ?int $padType = null,
+        ?string $padType = null,
         ?string $prefix = null,
         ?string $suffix = null
     ) {
@@ -91,7 +91,7 @@ class Numbering
      */
     public function pad(string $number): string
     {
-        return str_pad($number, $this->padLength, $this->padString, $this->padType);
+        return str_pad($number, $this->padLength, $this->padString, $this->getPadType());
     }
 
     /**
@@ -109,5 +109,15 @@ class Numbering
             $number = $this->suffix($number, $this->suffix);
         }
         return $number;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPadType(): int
+    {
+        return null !== $this->padType
+            ? constant($this->padType)
+            : STR_PAD_RIGHT;
     }
 }
