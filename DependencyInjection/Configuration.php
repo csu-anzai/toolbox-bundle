@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
         $this->emailConfiguration($rootNode);
         $this->pdfConfiguration($rootNode);
         $this->numberingConfiguration($rootNode);
+        $this->maintenanceConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -160,6 +161,33 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->scalarNode('suffix')
                             ->defaultNull()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    public function maintenanceConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('maintenance')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('system')
+                            ->children()
+                                ->scalarNode('base')->defaultValue('base.html.twig')->end()
+                                ->scalarNode('title')->defaultValue('Maintenance')->end()
+                                ->scalarNode('content')->defaultValue('maintenance/index.html.twig')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('custom')
+                            ->children()
+                                ->scalarNode('template')->defaultNull()->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
