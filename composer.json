@@ -31,7 +31,7 @@
     "symfony/swiftmailer-bundle": "^3.2",
     "beberlei/doctrineextensions": "^1.2",
     "spipu/html2pdf": "^5.2",
-    "symfony/property-access": "^4.3",
+    "symfony/property-access": "^4.2",
     "symfony/flex": "^1.4",
     "twig/twig": "^2.11"
   },
