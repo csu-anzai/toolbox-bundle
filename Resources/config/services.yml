@@ -54,6 +54,6 @@ services:
       arguments:
         - '@twig'
         - '@doctrine.orm.default_entity_manager'
-        - '%atournayre_toolbox.maintenance%
+        - '%atournayre_toolbox.maintenance%'
       tags:
         - { name: kernel.event_listener, event: kernel.request, method: 'onKernelRequest' }
