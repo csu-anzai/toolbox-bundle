@@ -218,6 +218,10 @@ class AtournayreToolboxExtension extends Extension
     {
         $configMaintenance = $config['maintenance'];
         $container->setParameter(
+            $this->prefixAtournayreToolbox('maintenance'),
+            $configMaintenance
+        );
+        $container->setParameter(
             $this->prefixAtournayreToolbox('maintenance.system.base'),
             $configMaintenance['system']['base']
         );
