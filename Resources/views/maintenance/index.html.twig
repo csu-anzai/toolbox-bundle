@@ -1,0 +1,12 @@
+{% extends system_base %}
+
+{% block title %}system_title{% endblock %}
+
+{% block body %}
+	{% if system_content is defined and system_content is not null %}
+		{% include system_content %}
+	{% else %}
+		<h1>Maintenance</h1>
+		<h2>Application is under maintenance.</h2>
+	{% endif %}
+{% endblock %}

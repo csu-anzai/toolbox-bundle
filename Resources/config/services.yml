@@ -49,3 +49,12 @@ services:
       - '%atournayre_toolbox.numbering.pad_type%'
       - '%atournayre_toolbox.numbering.prefix%'
       - '%atournayre_toolbox.numbering.suffix%'
+
+  Atournayre\ToolboxBundle\EventListener\MaintenanceListener:
+    class: Atournayre\ToolboxBundle\EventListener\MaintenanceListener
+    arguments:
+      - '@twig'
+      - '@doctrine.orm.default_entity_manager'
+      - '%atournayre_toolbox.maintenance%'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: 'onKernelRequest' }
