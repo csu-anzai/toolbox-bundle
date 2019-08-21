@@ -76,3 +76,10 @@ services:
       - '@Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService'
     tags:
       - { name: console.command, command: maintenance }
+
+#  Atournayre\ToolboxBundle\Command\DevelopmentEnvironmentCommand:
+#    class: Atournayre\ToolboxBundle\Command\DevelopmentEnvironmentCommand
+#    arguments:
+#      - '%atournayre_toolbox.development_environment%'
+#    tags:
+#      - { name: console.command, command: init:dev }

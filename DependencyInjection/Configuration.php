@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
         $this->pdfConfiguration($rootNode);
         $this->numberingConfiguration($rootNode);
         $this->maintenanceConfiguration($rootNode);
+        $this->developmentEnvironmentConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -191,6 +192,20 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('template')->defaultNull()->end()
                             ->end()
                         ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    public function developmentEnvironmentConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('development_environment')
+                    ->children()
                     ->end()
                 ->end()
             ->end();

@@ -210,6 +210,7 @@ class AtournayreToolboxExtension extends Extension
             $configNumbering['suffix']
         );
     }
+
     /**
      * @param ContainerBuilder $container
      * @param array            $config
@@ -236,6 +237,18 @@ class AtournayreToolboxExtension extends Extension
         $container->setParameter(
             $this->prefixAtournayreToolbox('maintenance.custom.template'),
             $configMaintenance['custom']['template']
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function setDevelopmentEnvironmentParameters(ContainerBuilder $container, array $config): void
+    {
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('development_environment'),
+            $config['development_environment']
         );
     }
 }
