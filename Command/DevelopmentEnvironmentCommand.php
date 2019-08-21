@@ -10,9 +10,25 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class DevelopmentEnvironmentCommand extends Command
 {
     /**
+     * @var array
+     */
+    private $commands;
+
+    /**
      * @var string
      */
     protected static $defaultName = 'init:dev';
+
+    /**
+     * DevelopmentEnvironmentCommand constructor.
+     *
+     * @param array $commands
+     */
+    public function __construct(array $commands)
+    {
+        parent::__construct(self::$defaultName);
+        $this->commands = $commands;
+    }
 
     protected function configure(): void
     {
@@ -29,7 +45,7 @@ class DevelopmentEnvironmentCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-
+//        print_r($this->commands);
 
         $io->success('Development environment is ready.');
     }
