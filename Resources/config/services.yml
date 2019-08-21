@@ -58,3 +58,21 @@ services:
       - '%atournayre_toolbox.maintenance%'
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: 'onKernelRequest' }
+
+  Atournayre\ToolboxBundle\Repository\ParameterRepository:
+    class: Atournayre\ToolboxBundle\Repository\ParameterRepository
+    arguments:
+    - '@doctrine'
+    tags:
+    - { name: doctrine.repository_service }
+
+  Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService:
+    class: Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService
+
+  Atournayre\ToolboxBundle\Command\MaintenanceCommand:
+    class: Atournayre\ToolboxBundle\Command\MaintenanceCommand
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+      - '@Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService'
+    tags:
+      - { name: console.command, command: maintenance }

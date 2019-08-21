@@ -24,7 +24,7 @@ class ParameterRepository extends ServiceEntityRepository
      *
      * @return object|null
      */
-    public function findOneByCode(string $code): object
+    public function findOneByCode(string $code): ?object
     {
         return $this->findOneBy(['code' => $code]);
     }

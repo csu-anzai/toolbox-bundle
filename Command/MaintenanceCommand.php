@@ -67,10 +67,10 @@ class MaintenanceCommand extends Command
             $this->entityManager->flush();
         }
 
-        $io->write($this->maintenanceService->systemState($parameter->getValeurBooleene()));
+        $io->write($this->maintenanceService->systemState($parameter->getBooleanValue()));
 
         $question = new ConfirmationQuestion(
-            $this->question($parameter->getValeurBooleene()),
+            $this->question($parameter->getBooleanValue()),
             true,
             '/^(y|o)/i'
         );
