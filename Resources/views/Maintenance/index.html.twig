@@ -1,6 +1,6 @@
-{% extends system_base %}
+{% extends system_base|default('base.html.twig') %}
 
-{% block title %}system_title{% endblock %}
+{% block title %}{{ system_title|default('Maintenance') }}{% endblock %}
 
 {% block body %}
 	{% if system_content is defined and system_content is not null %}

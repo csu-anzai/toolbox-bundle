@@ -71,7 +71,7 @@ class MaintenanceListener implements EventSubscriberInterface
         $parameterRepository = $this->entityManager->getRepository(Parameter::class);
         $parameter = $parameterRepository->findOneByCode(Parameter::CODE_MAINTENANCE);
 
-        if (is_null($parameter)) {
+        if (null === $parameter) {
             return;
         }
 
@@ -80,7 +80,7 @@ class MaintenanceListener implements EventSubscriberInterface
             $system = $this->maintenanceParameters['system'];
             $render = null !== $custom['template']
                 ? $this->twig->render($custom['template'])
-                : $this->twig->render('maintenance/index.html.twig', [
+                : $this->twig->render('@AtournayreToolbox/Maintenance/index.html.twig', [
                     'system_base' => $system['base'],
                     'system_title' => $system['title'],
                     'system_content' => $system['content'],

@@ -62,9 +62,9 @@ services:
   Atournayre\ToolboxBundle\Repository\ParameterRepository:
     class: Atournayre\ToolboxBundle\Repository\ParameterRepository
     arguments:
-    - '@doctrine'
+      - '@doctrine'
     tags:
-    - { name: doctrine.repository_service }
+      - { name: doctrine.repository_service }
 
   Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService:
     class: Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService

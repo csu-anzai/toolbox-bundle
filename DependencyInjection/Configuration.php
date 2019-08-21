@@ -182,7 +182,7 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('base')->defaultValue('base.html.twig')->end()
                                 ->scalarNode('title')->defaultValue('Maintenance')->end()
-                                ->scalarNode('content')->defaultValue('maintenance/index.html.twig')->end()
+                                ->scalarNode('content')->defaultNull()->end()
                             ->end()
                         ->end()
                         ->arrayNode('custom')
