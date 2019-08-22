@@ -77,9 +77,9 @@ services:
     tags:
       - { name: console.command, command: maintenance }
 
-#  Atournayre\ToolboxBundle\Command\DevelopmentEnvironmentCommand:
-#    class: Atournayre\ToolboxBundle\Command\DevelopmentEnvironmentCommand
-#    arguments:
-#      - '%atournayre_toolbox.development_environment%'
-#    tags:
-#      - { name: console.command, command: init:dev }
+  Atournayre\ToolboxBundle\Command\EnvironmentCommand:
+    class: Atournayre\ToolboxBundle\Command\EnvironmentCommand
+    arguments:
+      - '%atournayre_toolbox.development_environment%'
+    tags:
+      - { name: console.command, command: init }

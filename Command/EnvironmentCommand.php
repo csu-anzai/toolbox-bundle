@@ -4,10 +4,11 @@ namespace Atournayre\ToolboxBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class DevelopmentEnvironmentCommand extends Command
+class EnvironmentCommand extends Command
 {
     /**
      * @var array
@@ -17,7 +18,7 @@ class DevelopmentEnvironmentCommand extends Command
     /**
      * @var string
      */
-    protected static $defaultName = 'init:dev';
+    protected static $defaultName = 'init';
 
     /**
      * DevelopmentEnvironmentCommand constructor.
@@ -34,6 +35,7 @@ class DevelopmentEnvironmentCommand extends Command
     {
         $this
             ->setDescription('Setup development environment.')
+            ->addOption('env', 'env', InputOption::VALUE_REQUIRED, 'Environment as defined in your config file.', 'dev')
         ;
     }
 

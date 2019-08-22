@@ -247,8 +247,8 @@ class AtournayreToolboxExtension extends Extension
     private function setDevelopmentEnvironmentParameters(ContainerBuilder $container, array $config): void
     {
         $container->setParameter(
-            $this->prefixAtournayreToolbox('development_environment'),
-            $config['development_environment']
+            $this->prefixAtournayreToolbox('environment_commands'),
+            $config['environment_commands']
         );
     }
 }

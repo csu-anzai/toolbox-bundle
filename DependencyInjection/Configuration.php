@@ -204,8 +204,11 @@ class Configuration implements ConfigurationInterface
     {
         $rootNode
             ->children()
-                ->arrayNode('development_environment')
-                    ->scalarPrototype()->end()
+                ->arrayNode('environment_commands')
+                    ->arrayPrototype()
+                        ->scalarPrototype()
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
     }
