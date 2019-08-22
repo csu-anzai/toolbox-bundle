@@ -205,7 +205,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('environment_commands')
-                    ->addDefaultsIfNotSet()
                     ->arrayPrototype()
                         ->scalarPrototype()
                         ->end()

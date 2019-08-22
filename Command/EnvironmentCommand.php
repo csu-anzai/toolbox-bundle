@@ -13,7 +13,7 @@ class EnvironmentCommand extends Command
     /**
      * @var array
      */
-    private $commands;
+    private $environmentCommands;
 
     /**
      * @var string
@@ -23,12 +23,12 @@ class EnvironmentCommand extends Command
     /**
      * DevelopmentEnvironmentCommand constructor.
      *
-     * @param array $commands
+     * @param array $environmentCommands
      */
-    public function __construct(array $commands)
+    public function __construct(array $environmentCommands)
     {
         parent::__construct(self::$defaultName);
-        $this->commands = $commands;
+        $this->environmentCommands = $environmentCommands;
     }
 
     protected function configure(): void
@@ -46,9 +46,21 @@ class EnvironmentCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $io = new SymfonyStyle($input, $output);
+        $env = $input->getOption('env');
 
-//        print_r($this->commands);
+        if (!array_key_exists($env, $this->environmentCommands)) {
+            $io->warning('Missing configuration of this env in your config.yml!');
+        }
 
-        $io->success('Development environment is ready.');
+        $commands = $this->environmentCommands[$env];
+
+        foreach ($commands as $command) {
+            print_r($command);
+        }
+
+
+        print_r($this->environmentCommands);
+
+        $io->success('Environment is ready. Have fun!');
     }
 }

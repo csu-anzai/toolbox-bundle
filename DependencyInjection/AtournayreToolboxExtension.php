@@ -165,6 +165,7 @@ class AtournayreToolboxExtension extends Extension
         $this->setPdfParameters($container, $config);
         $this->setNumberingParameters($container, $config);
         $this->setMaintenanceParameters($container, $config);
+        $this->setEnvironmentParameters($container, $config);
     }
 
     /**
@@ -244,7 +245,7 @@ class AtournayreToolboxExtension extends Extension
      * @param ContainerBuilder $container
      * @param array            $config
      */
-    private function setDevelopmentEnvironmentParameters(ContainerBuilder $container, array $config): void
+    private function setEnvironmentParameters(ContainerBuilder $container, array $config): void
     {
         $container->setParameter(
             $this->prefixAtournayreToolbox('environment_commands'),
