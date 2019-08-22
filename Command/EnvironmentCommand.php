@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class EnvironmentCommand extends Command
 {
@@ -34,8 +36,7 @@ class EnvironmentCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Setup development environment.')
-            ->addOption('env', 'env', InputOption::VALUE_REQUIRED, 'Environment as defined in your config file.', 'dev')
+            ->setDescription('Setup environment.')
         ;
     }
 
@@ -50,17 +51,36 @@ class EnvironmentCommand extends Command
 
         if (!array_key_exists($env, $this->environmentCommands)) {
             $io->warning('Missing configuration of this env in your config.yml!');
+            exit;
         }
 
-        $commands = $this->environmentCommands[$env];
+        $this->runCommands($env, $io);
+        $io->success(sprintf('Environment "%s" is ready. Have fun!', $env));
+    }
 
-        foreach ($commands as $command) {
-            print_r($command);
+    /**
+     * @param string       $env
+     * @param SymfonyStyle $io
+     */
+    private function runCommands(string $env, SymfonyStyle $io): void
+    {
+        foreach ($this->environmentCommands[$env] as $command) {
+            $this->runCommand($command, $io);
         }
+    }
 
-
-        print_r($this->environmentCommands);
-
-        $io->success('Environment is ready. Have fun!');
+    /**
+     * @param string       $command
+     * @param SymfonyStyle $io
+     */
+    private function runCommand(string $command, SymfonyStyle $io): void
+    {
+        $io->section($command);
+        $process = Process::fromShellCommandline($command);
+        $process->start();
+        $iterator = $process->getIterator($process::ITER_SKIP_ERR | $process::ITER_KEEP_OUTPUT);
+        foreach ($iterator as $data) {
+            $io->writeln(trim($data));
+        }
     }
 }
