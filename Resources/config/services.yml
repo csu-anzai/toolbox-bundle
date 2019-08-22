@@ -80,6 +80,6 @@ services:
   Atournayre\ToolboxBundle\Command\EnvironmentCommand:
     class: Atournayre\ToolboxBundle\Command\EnvironmentCommand
     arguments:
-      - '%atournayre_toolbox.development_environment%'
+      - '%atournayre_toolbox.environment_commands%'
     tags:
       - { name: console.command, command: init }
