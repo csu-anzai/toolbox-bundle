@@ -1,0 +1,226 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{% block form_start -%}
+	{% if attr.class is defined and 'form-inline' in attr.class %}
+		{% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+	{% else %}
+		{% set attr = attr|merge({class: (attr.class|default('') ~ ' form-horizontal')|trim}) %}
+	{% endif %}
+	{{- parent() -}}
+{%- endblock form_start %}
+
+{% block form_label -%}
+	{% spaceless %}
+		{% if label is same as(false) %}
+			<div class="{{ block('form_label_class')|trim }}"></div>
+		{% else %}
+			{% set label_attr = label_attr|merge({'data-toggle': 'tooltip', 'data-placement': 'top', 'title': label|trans}) %}
+			{% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
+			{{- parent() -}}
+		{% endif %}
+	{% endspaceless %}
+{%- endblock form_label %}
+
+{% block form_label_class -%}
+	{% if labelCol1 is defined %}
+		col-sm-1
+	{% elseif labelCol2 is defined %}
+		col-sm-2
+	{% elseif labelCol3 is defined %}
+		col-sm-3
+	{% elseif labelCol4 is defined %}
+		col-sm-4
+	{% elseif labelCol5 is defined %}
+		col-sm-5
+	{% elseif labelCol6 is defined %}
+		col-sm-6
+	{% elseif labelCol7 is defined %}
+		col-sm-7
+	{% elseif labelCol8 is defined %}
+		col-sm-8
+	{% elseif labelCol9 is defined %}
+		col-sm-9
+	{% elseif labelCol10 is defined %}
+		col-sm-10
+	{% else %}
+		col-sm-2
+	{% endif %}
+{%- endblock form_label_class %}
+
+{% block form_widget_class -%}
+	{% if labelCol1 is defined %}
+		col-sm-11
+	{% elseif labelCol2 is defined %}
+		col-sm-10
+	{% elseif labelCol3 is defined %}
+		col-sm-9
+	{% elseif labelCol4 is defined %}
+		col-sm-8
+	{% elseif labelCol5 is defined %}
+		col-sm-7
+	{% elseif labelCol6 is defined %}
+		col-sm-6
+	{% elseif labelCol7 is defined %}
+		col-sm-5
+	{% elseif labelCol8 is defined %}
+		col-sm-4
+	{% elseif labelCol9 is defined %}
+		col-sm-3
+	{% elseif labelCol10 is defined %}
+		col-sm-10
+	{% else %}
+		col-sm-10
+	{% endif %}
+{%- endblock form_widget_class %}
+
+{% block form_group_class -%}
+	{% if formXS is defined %}
+		form-xs
+	{% elseif formSM is defined %}
+		form-sm
+	{% elseif formLG is defined %}
+		form-lg
+	{% else %}
+		{#form-md#}
+	{% endif %}
+{%- endblock form_group_class %}
+
+{% block form_row -%}
+	{% set hideFormGroup = false %}
+	{% if attr.class is defined and attr.class == 'hidden' and label_attr.class is defined and label_attr.class == 'hidden' %}
+		{% set hideFormGroup = true %}
+	{% endif %}
+	<div id="form_group_{{ id }}"
+	     class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %} {{ block('form_group_class')|trim }}
+          form-{{ name }} {% if hideFormGroup %}hidden{% endif %}">
+		{{- form_label(form) -}}
+		<div class="{{ block('form_widget_class')|trim }}">
+			{{- form_widget(form) -}}
+			{{- form_errors(form) -}}
+			{% if help is defined %}
+				<span class="help-block">{{ help|raw }}</span>
+			{% endif %}
+		</div>
+	</div>
+{%- endblock form_row %}
+
+{% block checkbox_row -%}
+	{{- block('checkbox_radio_row') -}}
+{%- endblock checkbox_row %}
+
+{% block radio_row -%}
+	{{- block('checkbox_radio_row') -}}
+{%- endblock radio_row %}
+
+{% block checkbox_radio_row -%}
+	{% set hideFormGroup = false %}
+	{% if attr.class is defined and attr.class == 'hidden' and label_attr.class is defined and label_attr.class == 'hidden' %}
+		{% set hideFormGroup = true %}
+	{% endif %}
+	{% spaceless %}
+		<div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %} {{ block('form_group_class')|trim }} {% if hideFormGroup %}hidden{% endif %} form-{{ name }}">
+			{% if form.vars.attr|length > 0 %}
+				{% if attribute(form.vars.attr, 'data-groupLabel') is defined %}
+					<div class="control-label col-sm-2">{{ attribute(form.vars.attr, 'data-groupLabel') }}</div>
+				{% endif %}
+			{% else %}
+				{{- form_label(form) -}}
+			{% endif %}
+			<div class="{{ block('form_widget_class')|trim }}">
+				{{- form_widget(form) -}}
+				{{- form_errors(form) -}}
+			</div>
+		</div>
+	{% endspaceless %}
+{%- endblock checkbox_radio_row %}
+
+{% block submit_row -%}
+	{% spaceless %}
+		<div class="form-group">
+			<div class="{{ block('form_label_class')|trim }}"></div>
+			<div class="{{ block('form_group_class')|trim }}">
+				{{ form_widget(form) }}
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock submit_row %}
+
+{% block reset_row -%}
+	{% spaceless %}
+		<div class="form-group">
+			<div class="{{ block('form_label_class')|trim }}"></div>
+			<div class="{{ block('form_group_class')|trim }}">
+				{{ form_widget(form) }}
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock reset_row %}
+
+{%- block positive_integer_widget -%}
+	{%- set type = type|default('number') -%}
+	{%- set attr = attr|merge({'min': 0}) -%}
+	{{ block('form_widget_simple') }}
+{%- endblock positive_integer_widget -%}
+
+{% block checkbox_widget -%}
+	{%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+	{% set wrapperClass = 'checkbox2' %}
+	{% if form.vars.attr|length > 0 %}
+		{% if attribute(form.vars.attr, 'data-switch') is defined and attribute(form.vars.attr, 'data-switch') is defined %}
+			{% set wrapperClass = 'switch' %}
+		{% endif %}
+	{% endif %}
+	<div class="{% if form.parent.vars.attr.class is defined %}{{ form.parent.vars.attr.class }}{% else %}{{ wrapperClass }}{% endif %}">
+		<label for="{{ id }}">
+			<input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+			<span class="box"></span>&nbsp;
+			{% if form.parent.vars.label != false or form.parent.vars.label is null %}{{ label|trans }}{% endif %}
+		</label>
+	</div>
+	{% if attr.help is defined %}
+		<span class="help-block">{{ attr.help|raw }}</span>
+	{% endif %}
+{%- endblock checkbox_widget %}
+
+{% block form_widget_simple -%}
+	{{- parent() -}}
+	{% if attr.help is defined %}
+		<span class="help-block">{{ attr.help|raw }}</span>
+	{% endif %}
+{%- endblock form_widget_simple %}
+
+{% block textarea_widget -%}
+	{{- parent() -}}
+	{% if attr.help is defined %}
+		<span class="help-block">{{ attr.help|raw }}</span>
+	{% endif %}
+{%- endblock textarea_widget %}
+
+{% block choice_widget_expanded -%}
+	{% if '-inline' in label_attr.class|default('') -%}
+		{%- for child in form %}
+			{{- form_widget(child, {
+				parent_label_class: label_attr.class|default(''),
+				translation_domain: choice_translation_domain,
+			}) -}}
+		{% endfor -%}
+	{%- else -%}
+		{% set widget_container_attributes %}
+			{%- if id is not empty %}id="{{ id }}"{% endif -%}
+			{% if multiple and expanded %}
+				class="checkbox-group"
+			{% else %}
+				class="radio-group"
+			{% endif %}
+		{% endset %}
+
+		<div {{ widget_container_attributes }}>
+			{%- for child in form %}
+				{{- form_widget(child, {
+					parent_label_class: label_attr.class|default(''),
+					translation_domain: choice_translation_domain,
+				}) -}}
+			{% endfor -%}
+		</div>
+	{%- endif %}
+{%- endblock choice_widget_expanded %}
