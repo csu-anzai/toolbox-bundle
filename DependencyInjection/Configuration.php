@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
         $this->pdfConfiguration($rootNode);
         $this->numberingConfiguration($rootNode);
         $this->maintenanceConfiguration($rootNode);
-        $this->developmentEnvironmentConfiguration($rootNode);
+        $this->environmentConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -200,11 +200,12 @@ class Configuration implements ConfigurationInterface
     /**
      * @param ArrayNodeDefinition $rootNode
      */
-    public function developmentEnvironmentConfiguration(ArrayNodeDefinition $rootNode): void
+    public function environmentConfiguration(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
                 ->arrayNode('environment_commands')
+                    ->addDefaultsIfNotSet()
                     ->arrayPrototype()
                         ->scalarPrototype()
                         ->end()
