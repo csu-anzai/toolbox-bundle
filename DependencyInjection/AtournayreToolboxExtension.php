@@ -166,6 +166,7 @@ class AtournayreToolboxExtension extends Extension
         $this->setNumberingParameters($container, $config);
         $this->setMaintenanceParameters($container, $config);
         $this->setEnvironmentParameters($container, $config);
+        $this->setCrudControllerParameters($container, $config);
     }
 
     /**
@@ -250,6 +251,43 @@ class AtournayreToolboxExtension extends Extension
         $container->setParameter(
             $this->prefixAtournayreToolbox('environment_commands'),
             $config['environment_commands']
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function setCrudControllerParameters(ContainerBuilder $container, array $config): void
+    {
+        $configCrudController = $config['crud_controller'];
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('crud_controller.create'),
+            $configCrudController['create']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('crud_controller.read'),
+            $configCrudController['read']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('crud_controller.update'),
+            $configCrudController['update']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('crud_controller.delete'),
+            $configCrudController['delete']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('crud_controller.delete.form_template'),
+            $configCrudController['delete']['form_template']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('crud_controller.delete.form_button_label'),
+            $configCrudController['delete']['form_button_label']
+        );
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('crud_controller.delete.default_confirmation_message'),
+            $configCrudController['delete']['default_confirmation_message']
         );
     }
 }

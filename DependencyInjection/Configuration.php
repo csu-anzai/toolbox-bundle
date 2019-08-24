@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
         $this->numberingConfiguration($rootNode);
         $this->maintenanceConfiguration($rootNode);
         $this->environmentConfiguration($rootNode);
+        $this->crudControllerConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -207,6 +208,44 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('environment_commands')
                     ->arrayPrototype()
                         ->scalarPrototype()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    public function crudControllerConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('crud_controller')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('create')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            ->end()
+                        ->end()
+                        ->arrayNode('read')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            ->end()
+                        ->end()
+                        ->arrayNode('update')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            ->end()
+                        ->end()
+                        ->arrayNode('delete')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('form_template')->defaultNull()->end()
+                                ->scalarNode('form_button_label')->defaultNull()->end()
+                                ->scalarNode('default_confirmation_message')->defaultNull()->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

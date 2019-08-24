@@ -34,7 +34,9 @@
     "symfony/property-access": "^4.2",
     "symfony/flex": "^1.4",
     "twig/twig": "^2.11",
-    "symfony/process": "^4.3"
+    "symfony/process": "^4.3",
+    "symfony/framework-bundle": "^4.3",
+    "doctrine/orm": "^2.6"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.3",
