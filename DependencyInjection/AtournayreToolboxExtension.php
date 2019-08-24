@@ -165,6 +165,7 @@ class AtournayreToolboxExtension extends Extension
         $this->setPdfParameters($container, $config);
         $this->setNumberingParameters($container, $config);
         $this->setMaintenanceParameters($container, $config);
+        $this->setEnvironmentParameters($container, $config);
     }
 
     /**
@@ -210,6 +211,7 @@ class AtournayreToolboxExtension extends Extension
             $configNumbering['suffix']
         );
     }
+
     /**
      * @param ContainerBuilder $container
      * @param array            $config
@@ -236,6 +238,18 @@ class AtournayreToolboxExtension extends Extension
         $container->setParameter(
             $this->prefixAtournayreToolbox('maintenance.custom.template'),
             $configMaintenance['custom']['template']
+        );
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function setEnvironmentParameters(ContainerBuilder $container, array $config): void
+    {
+        $container->setParameter(
+            $this->prefixAtournayreToolbox('environment_commands'),
+            $config['environment_commands']
         );
     }
 }
