@@ -25,7 +25,9 @@ Form basics CRUD operations, use this controllers with `$this->forward()`
 
 Minimal example :
 
-```
+```php
+<?php
+
     return $this->forward(
         DeleteController::ACTION_DELETE_JSON,
         [
@@ -37,7 +39,9 @@ Minimal example :
 
 Full example :
 
-```
+```php
+<?php
+
     return $this->forward(
         DeleteController::ACTION_DELETE_JSON,
         [
@@ -58,7 +62,7 @@ By default it runs in development environment.
 
 Use `--env` to define the environment you want.
 
-```
+```yaml
 environment_commands:
   dev:
     - 'mkdir public/uploads'
@@ -71,7 +75,7 @@ environment_commands:
 
 ## Form themes
 `config/packages/twig.yaml`
-```
+```yaml
 twig:
   form_themes:
     - @AtournayreToolbox/Form/theme/bootstrap3.html.twig
@@ -83,49 +87,50 @@ twig:
 `php bin/console maintenance`
 
 If `custom.template` is defined it overrides the `system` parameters.
-```
-  maintenance:
-    custom:
-      template: YOUR_TWIG #default null
-    system:
-      base: YOUR_BASE_TWIG #default base.html.twig
-      title: YOUR_TITLE #default Maintenance
-      content: YOUR_TWIG #default null
+```yaml
+maintenance:
+  custom:
+    template: YOUR_TWIG #default null
+  system:
+    base: YOUR_BASE_TWIG #default base.html.twig
+    title: YOUR_TITLE #default Maintenance
+    content: YOUR_TWIG #default null
 ```
 ## Numbering
 
 For `pad_type` authorized values, see [https://www.php.net/manual/fr/function.str-pad.php](https://www.php.net/manual/fr/function.str-pad.php)
-```
-  numbering:
-    pad_length: #default null
-    pad_string: #default null
-    pad_type: #default null
-    prefix: #default null
-    suffix: #default null
+```yaml
+numbering:
+  pad_length: #default null
+  pad_string: #default null
+  pad_type: #default null
+  prefix: #default null
+  suffix: #default null
 ```
 ## PDF
 
 It supports only Html2Pdf.
 
-```
-    pdf:
-      orientation: #default P
-      format: #default A4
-      language: #default fr
-      unicode: #default true 
-      encoding: #defaultValue UTF-8
-      margins: #default [0, 0, 0, 0]
+```yaml
+pdf:
+  orientation: #default P
+  format: #default A4
+  language: #default fr
+  unicode: #default true 
+  encoding: #defaultValue UTF-8
+  margins: #default [0, 0, 0, 0]
 ```
 
 ## PDF Merger
 
 ```php
-    function merge(array $filePaths): string
-    {
-        $mergeFilePath = '~/merge.pdf';
-        $pdfMerger = new Atournayre\ToolboxBundle\Service\Pdf\Merger\PdfMerger();
-        $pdfMerger->addDocuments($filePaths);
-        $pdfMerger->merge($mergeFilePath);
-        return $mergeFilePath;
-    }
+<?php
+function merge(array $filePaths): string
+{
+    $mergeFilePath = '~/merge.pdf';
+    $pdfMerger = new Atournayre\ToolboxBundle\Service\Pdf\Merger\PdfMerger();
+    $pdfMerger->addDocuments($filePaths);
+    $pdfMerger->merge($mergeFilePath);
+    return $mergeFilePath;
+}
 ```
