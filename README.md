@@ -18,7 +18,6 @@
 | Numbering             | Manage numbering (for invoices and more                                            |
 | PDF                   | Integration of Html2Pdf                                                            |
 
-
 ## Environments commands
 `php bin/console init`
 
@@ -37,9 +36,7 @@ environment_commands:
   ...
 ```
 
-
 ## Form themes
-
 `config/packages/twig.yaml`
 ```
 twig:
@@ -64,7 +61,7 @@ If `custom.template` is defined it overrides the `system` parameters.
 ```
 ## Numbering
 
-For `pad_type` authorized values, see https://www.php.net/manual/fr/function.str-pad.php
+For `pad_type` authorized values, see [https://www.php.net/manual/fr/function.str-pad.php](https://www.php.net/manual/fr/function.str-pad.php)
 ```
   numbering:
     pad_length: #default null
@@ -77,11 +74,11 @@ For `pad_type` authorized values, see https://www.php.net/manual/fr/function.str
 
 It supports only Html2Pdf.
 ```
-pdf:
-  orientation: #default P
-  format: #default A4
-  language: #default fr
-  unicode: #default true 
-  encoding: #defaultValue UTF-8
-  margins: #default [0, 0, 0, 0]
+    pdf:
+      orientation: #default P
+      format: #default A4
+      language: #default fr
+      unicode: #default true 
+      encoding: #defaultValue UTF-8
+      margins: #default [0, 0, 0, 0]
 ```
