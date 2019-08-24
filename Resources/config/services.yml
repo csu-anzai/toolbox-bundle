@@ -41,6 +41,9 @@ services:
 
   Atournayre\ToolboxBundle\Service\Pdf\Generator\PdfGeneratorInterface: '@atournayre_toolbox.pdf.html2pdf.service'
 
+  Atournayre\ToolboxBundle\Service\Pdf\Merger\PdfMerger:
+    class: Atournayre\ToolboxBundle\Service\Pdf\Merger\PdfMerger
+
   Atournayre\ToolboxBundle\Service\Numbering\Numbering:
     class: Atournayre\ToolboxBundle\Service\Numbering\Numbering
     arguments:

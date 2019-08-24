@@ -18,6 +18,7 @@
 | Maintenance           | Activate/Desactivate maintenance for your application                              |
 | Numbering             | Manage numbering (for invoices and more                                            |
 | PDF                   | Integration of Html2Pdf                                                            |
+| PDF Merger            | Combine PDFs                                                                       |
 
 ## CRUD Controllers
 Form basics CRUD operations, use this controllers with `$this->forward()`
@@ -114,4 +115,17 @@ It supports only Html2Pdf.
       unicode: #default true 
       encoding: #defaultValue UTF-8
       margins: #default [0, 0, 0, 0]
+```
+
+## PDF Merger
+
+```php
+    function merge(array $filePaths): string
+    {
+        $mergeFilePath = '~/merge.pdf';
+        $pdfMerger = new Atournayre\ToolboxBundle\Service\Pdf\Merger\PdfMerger();
+        $pdfMerger->addDocuments($filePaths);
+        $pdfMerger->merge($mergeFilePath);
+        return $mergeFilePath;
+    }
 ```

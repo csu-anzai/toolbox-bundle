@@ -38,7 +38,8 @@
     "symfony/framework-bundle": "^4.3",
     "doctrine/orm": "^2.6",
     "symfony/form": "^4.3",
-    "symfony/http-foundation": "^4.3"
+    "symfony/http-foundation": "^4.3",
+    "tomsgu/pdf-merger": "^0.1.0"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.3",
