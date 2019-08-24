@@ -7,6 +7,7 @@
 | Services              | Description                                                                        |
 |---                    |---                                                                                 |
 | Array                 | Array manipulation (shortcuts for core functions, usage of symfony/property-access |
+| CRUD Controllers      | Only Create and Delete controllers for the moment                                  |
 | Date                  | Carbon with additional methods                                                     |
 | Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions)   |
 | Email                 | Send mail using Swiftmailer                                                        |
@@ -17,6 +18,37 @@
 | Maintenance           | Activate/Desactivate maintenance for your application                              |
 | Numbering             | Manage numbering (for invoices and more                                            |
 | PDF                   | Integration of Html2Pdf                                                            |
+
+## CRUD Controllers
+Form basics CRUD operations, use this controllers with `$this->forward()`
+
+Minimal example :
+
+```
+    return $this->forward(
+        DeleteController::ACTION_DELETE_JSON,
+        [
+            'objectClass' => User::class,
+            'entityId' => $id,
+        ]
+    );
+```
+
+Full example :
+
+```
+    return $this->forward(
+        DeleteController::ACTION_DELETE_JSON,
+        [
+            'objectClass' => User::class,
+            'entityId' => $id,
+            'successMessage' => 'My custom success message.',
+            'confirmationMessage' => 'Are you really really sure?',
+            'errorMessage' => 'My custom error message.',
+        ]
+    );
+
+```
 
 ## Environments commands
 `php bin/console init`

@@ -13,6 +13,8 @@ class CreateController extends AbstractController
     const ACTION_CREATE_JSON = __CLASS__ . '::createJson';
 
     /**
+     * Use with $this->forward()
+     *
      * @param Request                $request
      * @param EntityManagerInterface $entityManager
      * @param string                 $serializedEntity  The entity (must be serialized because of ParamConverter).

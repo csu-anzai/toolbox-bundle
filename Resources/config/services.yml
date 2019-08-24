@@ -83,3 +83,10 @@ services:
       - '%atournayre_toolbox.environment_commands%'
     tags:
       - { name: console.command, command: init }
+
+  Atournayre\ToolboxBundle\Form\ConfirmationType:
+    class: Atournayre\ToolboxBundle\Form\ConfirmationType
+    arguments:
+      - '%atournayre_toolbox.crud_controller.delete.form_button_label%'
+    tags:
+      - { name: form.type }
