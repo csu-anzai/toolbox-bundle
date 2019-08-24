@@ -10,5 +10,17 @@
         "files": [
             ".env"
         ]
+    },
+    "symfony/form": {
+        "version": "v4.3.3"
+    },
+    "symfony/intl": {
+        "version": "v4.3.3"
+    },
+    "symfony/options-resolver": {
+        "version": "v4.3.3"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.12.0"
     }
 }

@@ -53,7 +53,7 @@ class AtournayreToolboxExtension extends Extension
     public function dateServices(ContainerBuilder $container): void
     {
         $container->setDefinition(
-            $this->prefixAtournayreToolbox('date'),
+            $this->prefix('date'),
             new Definition(DateService::class)
         );
     }
@@ -64,7 +64,7 @@ class AtournayreToolboxExtension extends Extension
     public function excelServices(ContainerBuilder $container): void
     {
         $container->setDefinition(
-            $this->prefixAtournayreToolbox('excel'),
+            $this->prefix('excel'),
             new Definition(Excel::class)
         );
     }
@@ -85,7 +85,7 @@ class AtournayreToolboxExtension extends Extension
      *
      * @return string
      */
-    private function prefixAtournayreToolbox(string $suffix): string
+    private function prefix(string $suffix): string
     {
         return $this->getAlias() . '.' . $suffix;
     }
@@ -97,7 +97,7 @@ class AtournayreToolboxExtension extends Extension
     private function definitionGoogleDate(ContainerBuilder $container, array $config): void
     {
         $container->setDefinition(
-            $this->prefixAtournayreToolbox('google.date'),
+            $this->prefix('google.date'),
             new Definition(
                 GoogleDateService::class,
                 [$config['timezone']]
@@ -111,7 +111,7 @@ class AtournayreToolboxExtension extends Extension
     private function definitionGoogleCalendarEvent(ContainerBuilder $container): void
     {
         $container->setDefinition(
-            $this->prefixAtournayreToolbox('google.calendar.event'),
+            $this->prefix('google.calendar.event'),
             new Definition(GoogleCalendarEventService::class)
         );
     }
@@ -123,7 +123,7 @@ class AtournayreToolboxExtension extends Extension
     private function definitionGoogleCalendar(ContainerBuilder $container, array $config): void
     {
         $container->setDefinition(
-            $this->prefixAtournayreToolbox('google.calendar'),
+            $this->prefix('google.calendar'),
             new Definition(
                 GoogleCalendarService::class,
                 [
@@ -140,32 +140,45 @@ class AtournayreToolboxExtension extends Extension
      */
     private function setParameters(ContainerBuilder $container, array $config): void
     {
-        $configGoogle = $config['google'];
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('google.timezone'),
-            $configGoogle['timezone']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('google.calendar.allowed_role'),
-            $configGoogle['calendar']['allowed_role']
-        );
-        $configGoogleClient = $configGoogle['client'];
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('google.client.application_name'),
-            $configGoogleClient['application_name']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('google.client.configuration_directory'),
-            $configGoogleClient['configuration_directory']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('email.noreply'),
-            $config['email']['noreply']
-        );
+        $this->setGoogleParameters($container, $config);
+        $this->setEmailParameters($container, $config);
         $this->setPdfParameters($container, $config);
         $this->setNumberingParameters($container, $config);
         $this->setMaintenanceParameters($container, $config);
         $this->setEnvironmentParameters($container, $config);
+        $this->setCrudControllerParameters($container, $config);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    public function setEmailParameters(ContainerBuilder $container, array $config): void
+    {
+        $container->setParameter($this->prefix('email.noreply'), $config['email']['noreply']);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    public function setGoogleParameters(ContainerBuilder $container, array $config): void
+    {
+        $currentConfig = $config['google'];
+        $container->setParameter($this->prefix('google.timezone'), $currentConfig['timezone']);
+        $container->setParameter(
+            $this->prefix('google.calendar.allowed_role'),
+            $currentConfig['calendar']['allowed_role']
+        );
+        $configGoogleClient = $currentConfig['client'];
+        $container->setParameter(
+            $this->prefix('google.client.application_name'),
+            $configGoogleClient['application_name']
+        );
+        $container->setParameter(
+            $this->prefix('google.client.configuration_directory'),
+            $configGoogleClient['configuration_directory']
+        );
     }
 
     /**
@@ -174,13 +187,13 @@ class AtournayreToolboxExtension extends Extension
      */
     private function setPdfParameters(ContainerBuilder $container, array $config): void
     {
-        $configPdf = $config['pdf'];
-        $container->setParameter($this->prefixAtournayreToolbox('pdf.orientation'), $configPdf['orientation']);
-        $container->setParameter($this->prefixAtournayreToolbox('pdf.format'), $configPdf['format']);
-        $container->setParameter($this->prefixAtournayreToolbox('pdf.language'), $configPdf['language']);
-        $container->setParameter($this->prefixAtournayreToolbox('pdf.unicode'), $configPdf['unicode']);
-        $container->setParameter($this->prefixAtournayreToolbox('pdf.encoding'), $configPdf['encoding']);
-        $container->setParameter($this->prefixAtournayreToolbox('pdf.margins'), $configPdf['margins']);
+        $currentConfig = $config['pdf'];
+        $container->setParameter($this->prefix('pdf.orientation'), $currentConfig['orientation']);
+        $container->setParameter($this->prefix('pdf.format'), $currentConfig['format']);
+        $container->setParameter($this->prefix('pdf.language'), $currentConfig['language']);
+        $container->setParameter($this->prefix('pdf.unicode'), $currentConfig['unicode']);
+        $container->setParameter($this->prefix('pdf.encoding'), $currentConfig['encoding']);
+        $container->setParameter($this->prefix('pdf.margins'), $currentConfig['margins']);
     }
 
     /**
@@ -189,27 +202,12 @@ class AtournayreToolboxExtension extends Extension
      */
     private function setNumberingParameters(ContainerBuilder $container, array $config): void
     {
-        $configNumbering = $config['numbering'];
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('numbering.pad_length'),
-            $configNumbering['pad_length']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('numbering.pad_string'),
-            $configNumbering['pad_string']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('numbering.pad_type'),
-            $configNumbering['pad_type']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('numbering.prefix'),
-            $configNumbering['prefix']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('numbering.suffix'),
-            $configNumbering['suffix']
-        );
+        $currentConfig = $config['numbering'];
+        $container->setParameter($this->prefix('numbering.pad_length'), $currentConfig['pad_length']);
+        $container->setParameter($this->prefix('numbering.pad_string'), $currentConfig['pad_string']);
+        $container->setParameter($this->prefix('numbering.pad_type'), $currentConfig['pad_type']);
+        $container->setParameter($this->prefix('numbering.prefix'), $currentConfig['prefix']);
+        $container->setParameter($this->prefix('numbering.suffix'), $currentConfig['suffix']);
     }
 
     /**
@@ -218,27 +216,12 @@ class AtournayreToolboxExtension extends Extension
      */
     private function setMaintenanceParameters(ContainerBuilder $container, array $config): void
     {
-        $configMaintenance = $config['maintenance'];
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('maintenance'),
-            $configMaintenance
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('maintenance.system.base'),
-            $configMaintenance['system']['base']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('maintenance.system.title'),
-            $configMaintenance['system']['title']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('maintenance.system.content'),
-            $configMaintenance['system']['content']
-        );
-        $container->setParameter(
-            $this->prefixAtournayreToolbox('maintenance.custom.template'),
-            $configMaintenance['custom']['template']
-        );
+        $currentConfig = $config['maintenance'];
+        $container->setParameter($this->prefix('maintenance'), $currentConfig);
+        $container->setParameter($this->prefix('maintenance.system.base'), $currentConfig['system']['base']);
+        $container->setParameter($this->prefix('maintenance.system.title'), $currentConfig['system']['title']);
+        $container->setParameter($this->prefix('maintenance.system.content'), $currentConfig['system']['content']);
+        $container->setParameter($this->prefix('maintenance.custom.template'),$currentConfig['custom']['template']);
     }
 
     /**
@@ -247,9 +230,39 @@ class AtournayreToolboxExtension extends Extension
      */
     private function setEnvironmentParameters(ContainerBuilder $container, array $config): void
     {
+        $container->setParameter($this->prefix('environment_commands'), $config['environment_commands']);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    private function setCrudControllerParameters(ContainerBuilder $container, array $config): void
+    {
+        $currentConfig = $config['crud_controller'];
+        $container->setParameter($this->prefix('crud_controller.create'), $currentConfig['create']);
+        $container->setParameter($this->prefix('crud_controller.read'), $currentConfig['read']);
+        $container->setParameter($this->prefix('crud_controller.update'), $currentConfig['update']);
+        $container->setParameter($this->prefix('crud_controller.delete'), $currentConfig['delete']);
         $container->setParameter(
-            $this->prefixAtournayreToolbox('environment_commands'),
-            $config['environment_commands']
+            $this->prefix('crud_controller.delete.form_template'),
+            $currentConfig['delete']['form_template']
+        );
+        $container->setParameter(
+            $this->prefix('crud_controller.delete.form_button_label'),
+            $currentConfig['delete']['form_button_label']
+        );
+        $container->setParameter(
+            $this->prefix('crud_controller.delete.default_success_message'),
+            $currentConfig['delete']['default_success_message']
+        );
+        $container->setParameter(
+            $this->prefix('crud_controller.delete.default_confirmation_message'),
+            $currentConfig['delete']['default_confirmation_message']
+        );
+        $container->setParameter(
+            $this->prefix('crud_controller.delete.default_confirmation_message'),
+            $currentConfig['delete']['default_confirmation_message']
         );
     }
 }

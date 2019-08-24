@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
         $this->numberingConfiguration($rootNode);
         $this->maintenanceConfiguration($rootNode);
         $this->environmentConfiguration($rootNode);
+        $this->crudControllerConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -207,6 +208,56 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('environment_commands')
                     ->arrayPrototype()
                         ->scalarPrototype()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    public function crudControllerConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('crud_controller')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('create')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            ->end()
+                        ->end()
+                        ->arrayNode('read')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            ->end()
+                        ->end()
+                        ->arrayNode('update')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                            ->end()
+                        ->end()
+                        ->arrayNode('delete')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('form_template')
+                                    ->defaultValue('@AtournayreToolbox/Form/_partial/form/_delete.html.twig')
+                                ->end()
+                                ->scalarNode('form_button_label')
+                                    ->defaultValue('Confirm')
+                                ->end()
+                                ->scalarNode('default_success_message')
+                                    ->defaultValue('Element have been removed.')
+                                ->end()
+                                ->scalarNode('default_confirmation_message')
+                                    ->defaultValue('Do you really want to remove?')
+                                ->end()
+                                ->scalarNode('default_error_message')
+                                    ->defaultValue('Fail to remove.')
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
