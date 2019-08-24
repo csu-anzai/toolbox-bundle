@@ -2,7 +2,7 @@
 
 namespace Atournayre\ToolboxBundle\Tests\Pdf;
 
-use Atournayre\ToolboxBundle\Service\Pdf\Html2PdfGenerator;
+use Atournayre\ToolboxBundle\Service\Pdf\Generator\Html2PdfGenerator;
 use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 

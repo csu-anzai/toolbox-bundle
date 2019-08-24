@@ -1,6 +1,6 @@
 <?php
 
-namespace Atournayre\ToolboxBundle\Service\Pdf;
+namespace Atournayre\ToolboxBundle\Service\Pdf\Generator;
 
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;

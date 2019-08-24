@@ -30,7 +30,7 @@ services:
   Atournayre\ToolboxBundle\Service\Email\EmailInterface: '@atournayre_toolbox.email.swiftmailer.service'
 
   atournayre_toolbox.pdf.html2pdf.service:
-    class: Atournayre\ToolboxBundle\Service\Pdf\Html2PdfGenerator
+    class: Atournayre\ToolboxBundle\Service\Pdf\Generator\Html2PdfGenerator
     arguments:
       - '%atournayre_toolbox.pdf.orientation%'
       - '%atournayre_toolbox.pdf.format%'
@@ -39,7 +39,7 @@ services:
       - '%atournayre_toolbox.pdf.encoding%'
       - '%atournayre_toolbox.pdf.margins%'
 
-  Atournayre\ToolboxBundle\Service\Pdf\PdfGeneratorInterface: '@atournayre_toolbox.pdf.html2pdf.service'
+  Atournayre\ToolboxBundle\Service\Pdf\Generator\PdfGeneratorInterface: '@atournayre_toolbox.pdf.html2pdf.service'
 
   Atournayre\ToolboxBundle\Service\Numbering\Numbering:
     class: Atournayre\ToolboxBundle\Service\Numbering\Numbering

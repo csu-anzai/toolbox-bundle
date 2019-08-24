@@ -1,6 +1,6 @@
 <?php
 
-namespace Atournayre\ToolboxBundle\Service\Pdf;
+namespace Atournayre\ToolboxBundle\Service\Pdf\Generator;
 
 interface PdfGeneratorInterface
 {
