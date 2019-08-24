@@ -73,6 +73,7 @@ For `pad_type` authorized values, see [https://www.php.net/manual/fr/function.st
 ## PDF
 
 It supports only Html2Pdf.
+
 ```
     pdf:
       orientation: #default P
