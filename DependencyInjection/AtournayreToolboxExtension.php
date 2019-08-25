@@ -147,7 +147,6 @@ class AtournayreToolboxExtension extends Extension
         $this->setMaintenanceParameters($container, $config);
         $this->setEnvironmentParameters($container, $config);
         $this->setCrudControllerParameters($container, $config);
-        $this->setEncryptParameters($container, $config);
     }
 
     /**
@@ -265,14 +264,5 @@ class AtournayreToolboxExtension extends Extension
             $this->prefix('crud_controller.delete.default_confirmation_message'),
             $currentConfig['delete']['default_confirmation_message']
         );
-    }
-
-    /**
-     * @param ContainerBuilder $container
-     * @param array            $config
-     */
-    private function setEncryptParameters(ContainerBuilder $container, array $config): void
-    {
-        $container->setParameter($this->prefix('encrypt_salt'), $config['encrypt_salt']);
     }
 }
