@@ -143,3 +143,15 @@ services:
   Atournayre\ToolboxBundle\Command\GenKeyCommand:
     tags:
       -  { name: console.command }
+
+  atournayre_toolbox.doctrine_encrypt.subscribers:
+    class: Atournayre\ToolboxBundle\Subscribers\DoctrineEncryptSubscriber
+    arguments:
+      - '@annotations.reader'
+      - '@atournayre_toolbox.encryptor.service'
+      - '%atournayre_toolbox.encrypt.annotations%'
+      - '%atournayre_toolbox.encrypt.disabled%'
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
+  Atournayre\ToolboxBundle\Subscribers\DoctrineEncryptSubscriberInterface: '@atournayre_toolbox.doctrine_encrypt.subscribers'

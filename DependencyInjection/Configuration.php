@@ -2,6 +2,7 @@
 
 namespace Atournayre\ToolboxBundle\DependencyInjection;
 
+use Atournayre\ToolboxBundle\Annotations\Encrypted;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -276,6 +277,11 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('key')->defaultNull()->end()
+                        ->arrayNode('annotations')
+                            ->addDefaultChildrenIfNoneSet([
+                                Encrypted::class
+                            ])
+                        ->end()
                         ->scalarNode('disabled')->defaultFalse()->end()
                     ->end()
                 ->end()

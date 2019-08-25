@@ -312,7 +312,7 @@ class DoctrineEncryptSubscriber implements EventSubscriber, DoctrineEncryptSubsc
             }
 
             if (is_object($value)) {
-                throw new Exception('You cannot encrypt an object at ' . $refProperty->class . ':'. $refProperty->getName(), $value);
+                throw new Exception('You cannot encrypt an object at ' . $refProperty->class . ':'. $refProperty->getName());
             }
 
             if ($isEncryptOperation) {
