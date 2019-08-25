@@ -28,6 +28,7 @@ class Configuration implements ConfigurationInterface
         $this->maintenanceConfiguration($rootNode);
         $this->environmentConfiguration($rootNode);
         $this->crudControllerConfiguration($rootNode);
+        $this->encryptConfiguration($rootNode);
 
         return $treeBuilder;
     }
@@ -260,6 +261,18 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                     ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
+    public function encryptConfiguration(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->scalarNode('encrypt_salt')
                 ->end()
             ->end();
     }

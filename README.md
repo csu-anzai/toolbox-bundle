@@ -11,6 +11,7 @@
 | Date                  | Carbon with additional methods                                                     |
 | Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions)   |
 | Email                 | Send mail using Swiftmailer                                                        |
+| Encrypt               | Encrypt/Decrypt datas                                                              |
 | Excel                 | Create and manage Excel files                                                      |
 | File                  | Create and manage files                                                            |
 | Form themes           | Form themes (Bootstrap 3, Materialize                                              |
