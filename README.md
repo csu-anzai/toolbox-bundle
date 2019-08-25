@@ -19,6 +19,7 @@
 | Numbering             | Manage numbering (for invoices and more                                            |
 | PDF                   | Integration of Html2Pdf                                                            |
 | PDF Merger            | Combine PDFs                                                                       |
+| SIREN/SIRET           | Use INSEE API to check SIREN/SIRET informations                                    |
 
 ## CRUD Controllers
 Form basics CRUD operations, use this controllers with `$this->forward()`
@@ -133,4 +134,42 @@ function merge(array $filePaths): string
     $pdfMerger->merge($mergeFilePath);
     return $mergeFilePath;
 }
+```
+
+## SIREN/SIRET
+
+To check SIREN/SIRET informations, first go to [http://api.insee.fr](http://api.insee.fr), then create an application and add credentials to your `.env`.
+
+```dotenv
+INSEE_CONSUMER_KEY = XXXXXXXXXX
+INSEE_CONSUMER_SECRET = XXXXXXXXXX
+```
+
+### Validation
+
+To validate a SIREN
+```php
+<?php
+use Atournayre\ToolboxBundle\Service\Insee;
+
+// Use Dependency Injection for lines below.
+$inseeToken = new InseeToken(INSEE_CONSUMER_KEY, INSEE_CONSUMER_SECRET);
+$inseeSirene = new InseeSirene();
+$validator = new InseeSirenValidator($inseeToken, $inseeSirene);
+
+$validator->validate('000000000');
+```
+
+To validate a SIRET
+```php
+<?php
+
+use Atournayre\ToolboxBundle\Service\Insee;
+
+// Use Dependency Injection for lines below.
+$inseeToken = new InseeToken(INSEE_CONSUMER_KEY, INSEE_CONSUMER_SECRET);
+$inseeSirene = new InseeSirene();
+$validator = new InseeSiretValidator($inseeToken, $inseeSirene);
+
+$validator->validate('00000000000000');
 ```
