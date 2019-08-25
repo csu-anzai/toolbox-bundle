@@ -278,9 +278,10 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('key')->defaultNull()->end()
                         ->arrayNode('annotations')
-                            ->addDefaultChildrenIfNoneSet([
-                                Encrypted::class
-                            ])
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode(0)->defaultValue(Encrypted::class)->end()
+                            ->end()
                         ->end()
                         ->scalarNode('disabled')->defaultFalse()->end()
                     ->end()

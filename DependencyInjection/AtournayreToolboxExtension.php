@@ -274,6 +274,7 @@ class AtournayreToolboxExtension extends Extension
     private function setEncryptParameters(ContainerBuilder $container, array $config): void
     {
         $container->setParameter($this->prefix('encrypt.key'), $config['encrypt']['key']);
+        $container->setParameter($this->prefix('encrypt.annotations'), $config['encrypt']['annotations']);
         $container->setParameter($this->prefix('encrypt.disabled'), $config['encrypt']['disabled']);
     }
 }
