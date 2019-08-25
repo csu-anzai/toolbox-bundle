@@ -2,8 +2,8 @@
 
 namespace Atournayre\ToolboxBundle\Entity;
 
+use Atournayre\ToolboxBundle\Annotations\Encrypted;
 use Doctrine\ORM\Mapping as ORM;
-use SpecShaper\EncryptBundle\Annotations\Encrypted;
 
 /**
  * @ORM\Entity(repositoryClass="Atournayre\ToolboxBundle\Repository\IbanRepository")
@@ -47,10 +47,13 @@ class Iban
 
     /**
      * @param mixed $iban
+     *
+     * @return Iban
      */
-    public function setIban($iban): void
+    public function setIban($iban)
     {
         $this->iban = $iban;
+        return $this;
     }
 
     /**
@@ -63,9 +66,12 @@ class Iban
 
     /**
      * @param mixed $swift
+     *
+     * @return Iban
      */
-    public function setSwift($swift): void
+    public function setSwift($swift)
     {
         $this->swift = $swift;
+        return $this;
     }
 }

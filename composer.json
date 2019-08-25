@@ -44,7 +44,7 @@
     "tomsgu/pdf-merger": "^0.1.0",
     "globalcitizen/php-iban": "^2.7",
     "symfony/validator": "4.2.*",
-    "specshaper/encrypt-bundle": "^1.1"
+    "ext-openssl": "*"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.2",
