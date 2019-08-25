@@ -155,9 +155,9 @@ use Atournayre\ToolboxBundle\Service\Insee;
 // Use Dependency Injection for lines below.
 $inseeToken = new InseeToken(INSEE_CONSUMER_KEY, INSEE_CONSUMER_SECRET);
 $inseeSirene = new InseeSirene();
-$validator = new InseeValidator($inseeToken, $inseeSirene);
+$validator = new InseeSirenValidator($inseeToken, $inseeSirene);
 
-$validator->validateSiren('000000000');
+$validator->validate('000000000');
 ```
 
 To validate a SIRET
@@ -169,7 +169,7 @@ use Atournayre\ToolboxBundle\Service\Insee;
 // Use Dependency Injection for lines below.
 $inseeToken = new InseeToken(INSEE_CONSUMER_KEY, INSEE_CONSUMER_SECRET);
 $inseeSirene = new InseeSirene();
-$validator = new InseeValidator($inseeToken, $inseeSirene);
+$validator = new InseeSiretValidator($inseeToken, $inseeSirene);
 
-$validator->validateSiret('00000000000000');
+$validator->validate('00000000000000');
 ```

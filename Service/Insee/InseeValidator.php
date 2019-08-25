@@ -6,15 +6,17 @@ use Exception;
 
 class InseeValidator
 {
+    const COMPANY_IN_ACTIVITY = 'A';
+
     /**
      * @var InseeToken
      */
-    private $inseeToken;
+    protected $inseeToken;
 
     /**
      * @var InseeSirene
      */
-    private $inseeSirene;
+    protected $inseeSirene;
 
     /**
      * InseeValidator constructor.
@@ -29,69 +31,36 @@ class InseeValidator
     }
 
     /**
-     * @param string $siren
+     * @param object $currentInformations
      *
      * @return bool
-     * @throws Exception
      */
-    public function validateSiren(string $siren): bool
+    public function hasNoEndDate(object $currentInformations): bool
     {
-        return $this->validate(InseeSirene::URL_API_SIREN, $siren);
-    }
-
-    /**
-     * @param string $siret
-     *
-     * @return bool
-     * @throws Exception
-     */
-    public function validateSiret(string $siret): bool
-    {
-        return $this->validate(InseeSirene::URL_API_SIRET, $siret);
-    }
-
-    /**
-     * @param string $urlApi
-     * @param string $sirene
-     *
-     * @return bool
-     * @throws Exception
-     */
-    public function validate(string $urlApi, string $sirene): bool
-    {
-        $informations = $this->inseeSirene->get($urlApi, $sirene, $this->inseeToken->get());
-        $currentInformations = $this->getCurrentInformations($informations);
-        return $this->checkValidity($currentInformations);
+        return null === $currentInformations->dateFin;
     }
 
     /**
      * @param object $datasFromApi
      *
-     * @return object
      * @throws Exception
      */
-    public function getCurrentInformations(object $datasFromApi): object
+    public function checkApiResponse(object $datasFromApi): void
     {
         if (200 !== $datasFromApi->header->statut) {
             throw new Exception($datasFromApi->header->message);
         }
-
-        $periodesEtablissement = $datasFromApi->etablissement->periodesEtablissement;
-
-        if (!array_key_exists(0, $periodesEtablissement)) {
-            throw new Exception('No datas for this company.');
-        }
-        return $periodesEtablissement[0];
     }
 
     /**
-     * @param object $currentInformations
+     * @param array $datas
      *
-     * @return bool
+     * @throws Exception
      */
-    public function checkValidity(object $currentInformations): bool
+    public function checkNoDatas(array $datas): void
     {
-        return 'A' === $currentInformations->etatAdministratifEtablissement
-               && null === $currentInformations->dateFin;
+        if (!array_key_exists(0, $datas)) {
+            throw new Exception('No datas for this company.');
+        }
     }
 }

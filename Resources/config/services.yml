@@ -108,3 +108,15 @@ services:
     arguments:
       - '@Atournayre\ToolboxBundle\Service\Insee\InseeToken'
       - '@Atournayre\ToolboxBundle\Service\Insee\InseeSirene'
+
+  Atournayre\ToolboxBundle\Service\Insee\InseeSirenValidator:
+    class: Atournayre\ToolboxBundle\Service\Insee\InseeSirenValidator
+    parent: Atournayre\ToolboxBundle\Service\Insee\InseeValidator
+    autowire: false
+    autoconfigure: false
+
+  Atournayre\ToolboxBundle\Service\Insee\InseeSiretValidator:
+    class: Atournayre\ToolboxBundle\Service\Insee\InseeSiretValidator
+    parent: Atournayre\ToolboxBundle\Service\Insee\InseeValidator
+    autowire: false
+    autoconfigure: false
