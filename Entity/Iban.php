@@ -3,6 +3,7 @@
 namespace Atournayre\ToolboxBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use SpecShaper\EncryptBundle\Annotations\Encrypted;
 
 /**
  * @ORM\Entity(repositoryClass="Atournayre\ToolboxBundle\Repository\IbanRepository")
@@ -17,11 +18,13 @@ class Iban
     private $id;
 
     /**
+     * @Encrypted
      * @ORM\Column(type="string", length=34)
      */
     private $iban;
 
     /**
+     * @Encrypted
      * @ORM\Column(type="string", length=11)
      */
     private $swift;

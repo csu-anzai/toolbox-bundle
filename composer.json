@@ -43,7 +43,8 @@
     "symfony/http-foundation": "^4.2",
     "tomsgu/pdf-merger": "^0.1.0",
     "globalcitizen/php-iban": "^2.7",
-    "symfony/validator": "4.2.*"
+    "symfony/validator": "4.2.*",
+    "specshaper/encrypt-bundle": "^1.1"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.2",
