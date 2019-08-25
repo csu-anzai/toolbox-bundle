@@ -120,3 +120,46 @@ services:
     parent: Atournayre\ToolboxBundle\Service\Insee\InseeValidator
     autowire: false
     autoconfigure: false
+
+  Atournayre\ToolboxBundle\Subscribers\EncryptEventSubscriber:
+    arguments:
+      - '@atournayre_toolbox.encryptor.service'
+      - '%atournayre_toolbox.encrypt.disabled%'
+    tags:
+      - { name: kernel.event_subscriber, connection: default }
+
+  atournayre_toolbox.encryptor.service:
+    class: Atournayre\ToolboxBundle\Encryptor\OpenSslEncryptor
+    arguments:
+      - '%atournayre_toolbox.encrypt.key%'
+
+  Atournayre\ToolboxBundle\Encryptor\EncryptorInterface: '@atournayre_toolbox.encryptor.service'
+
+  Atournayre\ToolboxBundle\Twig\EncryptExtension:
+    arguments:
+      - '@Atournayre\ToolboxBundle\Encryptor\EncryptorInterface'
+    tags: ['twig.extension']
+
+  Atournayre\ToolboxBundle\Command\GenKeyCommand:
+    tags:
+      -  { name: console.command }
+
+  atournayre_toolbox.doctrine_encrypt.subscribers:
+    class: Atournayre\ToolboxBundle\Subscribers\DoctrineEncryptSubscriber
+    arguments:
+      - '@annotations.reader'
+      - '@atournayre_toolbox.encryptor.service'
+      - '%atournayre_toolbox.encrypt.annotations%'
+      - '%atournayre_toolbox.encrypt.disabled%'
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
+  Atournayre\ToolboxBundle\Subscribers\DoctrineEncryptSubscriberInterface: '@atournayre_toolbox.doctrine_encrypt.subscribers'
+
+  Atournayre\ToolboxBundle\Repository\IbanRepository:
+    class: Atournayre\ToolboxBundle\Repository\IbanRepository
+    arguments:
+      - '@doctrine'
+    tags:
+      - { name: doctrine.repository_service }
+

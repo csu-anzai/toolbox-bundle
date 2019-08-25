@@ -11,10 +11,12 @@
 | Date                  | Carbon with additional methods                                                     |
 | Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions)   |
 | Email                 | Send mail using Swiftmailer                                                        |
+| Encrypt               | Encrypt/Decrypt datas                                                              |
 | Excel                 | Create and manage Excel files                                                      |
 | File                  | Create and manage files                                                            |
 | Form themes           | Form themes (Bootstrap 3, Materialize                                              |
 | Google                | Connect to Google Calendar API                                                     |
+| IBAN                  | Form, data validation, encryption                                                  |
 | Maintenance           | Activate/Desactivate maintenance for your application                              |
 | Numbering             | Manage numbering (for invoices and more                                            |
 | PDF                   | Integration of Html2Pdf                                                            |
@@ -82,6 +84,19 @@ twig:
     - @AtournayreToolbox/Form/theme/bootstrap3.html.twig
     - @AtournayreToolbox/Form/theme/materialize.html.twig
 ```
+
+## IBAN
+
+### Form
+Use `IbanType`
+
+### Validation
+Using form, validation is automatic using DataTransformer, an error will be thrown to the form.
+
+### Encryption
+Datas are crypted using your application secret.
+
+**/!\ Be careful, changing your secret make all datas un recoverable.**
 
 ## Maintenance
 
