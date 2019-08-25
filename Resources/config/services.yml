@@ -123,7 +123,8 @@ services:
 
   Atournayre\ToolboxBundle\Subscribers\EncryptEventSubscriber:
     arguments:
-      $isDisabled: '%atournayre_toolbox.encrypt.disabled%'
+      - '@atournayre_toolbox.encryptor.service'
+      - '%atournayre_toolbox.encrypt.disabled%'
     tags:
       - { name: kernel.event_subscriber, connection: default }
 
