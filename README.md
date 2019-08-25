@@ -15,6 +15,7 @@
 | File                  | Create and manage files                                                            |
 | Form themes           | Form themes (Bootstrap 3, Materialize                                              |
 | Google                | Connect to Google Calendar API                                                     |
+| IBAN                  | Form, data validation, encryption                                                  |
 | Maintenance           | Activate/Desactivate maintenance for your application                              |
 | Numbering             | Manage numbering (for invoices and more                                            |
 | PDF                   | Integration of Html2Pdf                                                            |
@@ -82,6 +83,19 @@ twig:
     - @AtournayreToolbox/Form/theme/bootstrap3.html.twig
     - @AtournayreToolbox/Form/theme/materialize.html.twig
 ```
+
+## IBAN
+
+### Form
+Use `IbanType`
+
+### Validation
+Using form, validation is automatic using DataTransformer, an error will be thrown to the form.
+
+### Encryption
+Datas are crypted using your application secret.
+
+**/!\ Be careful, changing your secret make all datas un recoverable.**
 
 ## Maintenance
 

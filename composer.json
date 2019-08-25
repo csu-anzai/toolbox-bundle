@@ -42,7 +42,8 @@
     "symfony/form": "^4.2",
     "symfony/http-foundation": "^4.2",
     "tomsgu/pdf-merger": "^0.1.0",
-    "globalcitizen/php-iban": "^2.7"
+    "globalcitizen/php-iban": "^2.7",
+    "symfony/validator": "4.2.*"
   },
   "require-dev": {
     "symfony/phpunit-bridge": "^4.2",
