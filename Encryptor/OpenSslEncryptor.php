@@ -10,16 +10,16 @@ class OpenSslEncryptor implements EncryptorInterface
     const METHOD = 'aes-256-cbc';
 
     /**
-     * @var string
+     * @var string|null
      */
     private $secretKey;
 
     /**
      * OpenSslEncryptor constructor.
      *
-     * @param string $secretKey
+     * @param string|null $secretKey
      */
-    public function __construct(string $secretKey)
+    public function __construct(string $secretKey = null)
     {
         $this->secretKey = $secretKey;
     }
