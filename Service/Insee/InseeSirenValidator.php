@@ -14,6 +14,7 @@ class InseeSirenValidator extends InseeValidator
      */
     public function validate(string $siren): bool
     {
+        $this->checkNotEmpty($siren, 'SIREN');
         $informations = $this->inseeSirene->get(InseeSirene::URL_API_SIREN, $siren, $this->inseeToken->get());
         $currentInformations = $this->getCurrentInformations($informations);
         return $this->checkValidity($currentInformations);

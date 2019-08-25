@@ -63,4 +63,17 @@ class InseeValidator
             throw new Exception('No datas for this company.');
         }
     }
+
+    /**
+     * @param string $sirene
+     * @param string $dataType
+     *
+     * @throws Exception
+     */
+    public function checkNotEmpty(string $sirene, string $dataType): void
+    {
+        if ('' === $sirene) {
+            throw new Exception(sprintf('%s cannot be empty.', $dataType));
+        }
+    }
 }
