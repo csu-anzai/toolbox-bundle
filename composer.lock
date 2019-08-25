@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b79a737ec70a118cb206818a45bcf8c",
+    "content-hash": "0e6004672a0168f7d3b6ef60ced6006e",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1037,6 +1037,34 @@
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
             "time": "2017-06-27T22:17:23+00:00"
+        },
+        {
+            "name": "globalcitizen/php-iban",
+            "version": "v2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/globalcitizen/php-iban.git",
+                "reference": "51f0fb5fec38574c23a7baf2b3795bf5729dc813"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/globalcitizen/php-iban/zipball/51f0fb5fec38574c23a7baf2b3795bf5729dc813",
+                "reference": "51f0fb5fec38574c23a7baf2b3795bf5729dc813",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "oophp-iban.php",
+                    "php-iban.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "php-iban is a library for parsing and validating IBAN (and IIBAN) bank account information.",
+            "time": "2019-07-02T16:45:16+00:00"
         },
         {
             "name": "google/apiclient",
@@ -6661,7 +6689,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.2.9",

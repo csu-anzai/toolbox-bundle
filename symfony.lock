@@ -1,4 +1,7 @@
 {
+    "globalcitizen/php-iban": {
+        "version": "v2.7.0"
+    },
     "setasign/fpdf": {
         "version": "1.8.1"
     },
