@@ -13,21 +13,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class IbanType extends AbstractType
 {
     /**
-     * @var IbanTransformer
-     */
-    private $ibanTransformer;
-
-    /**
-     * IbanType constructor.
-     *
-     * @param IbanTransformer $ibanTransformer
-     */
-    public function __construct(IbanTransformer $ibanTransformer)
-    {
-        $this->ibanTransformer = $ibanTransformer;
-    }
-
-    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
@@ -55,8 +40,6 @@ class IbanType extends AbstractType
                     ]
                 ]
             );
-
-        $builder->get('iban')->addModelTransformer($this->ibanTransformer);
     }
 
     /**
