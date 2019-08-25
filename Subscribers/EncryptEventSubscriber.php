@@ -36,16 +36,6 @@ class EncryptEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Return the encryptor.
-     *
-     * @return EncryptorInterface
-     */
-    public function getEncryptor(): EncryptorInterface
-    {
-        return $this->encryptor;
-    }
-
-    /**
      * Realization of EventSubscriber interface method.
      *
      * @return array Return all events which this subscriber is listening
@@ -88,23 +78,8 @@ class EncryptEventSubscriber implements EventSubscriberInterface
     public function decrypt(EncryptEventInterface $event): EncryptEventInterface
     {
         $value = $event->getValue();
-        $decrypted = $this->getEncryptor()->decrypt($value);
+        $decrypted = $this->encryptor->decrypt($value);
         $event->setValue($decrypted);
         return $event;
-    }
-
-    /**
-     * Decrypt a value.
-     *
-     * If the value is an object, or if it does not contain the suffic <ENC> then return the value iteslf back.
-     * Otherwise, decrypt the value and return.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public function decryptValue(string $value): string
-    {
-        return $this->getEncryptor()->decrypt($value);
     }
 }

@@ -155,3 +155,11 @@ services:
       - { name: doctrine.event_subscriber, connection: default }
 
   Atournayre\ToolboxBundle\Subscribers\DoctrineEncryptSubscriberInterface: '@atournayre_toolbox.doctrine_encrypt.subscribers'
+
+  Atournayre\ToolboxBundle\Repository\IbanRepository:
+    class: Atournayre\ToolboxBundle\Repository\IbanRepository
+    arguments:
+      - '@doctrine'
+    tags:
+      - { name: doctrine.repository_service }
+

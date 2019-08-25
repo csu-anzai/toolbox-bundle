@@ -277,7 +277,7 @@ class DoctrineEncryptSubscriber implements EventSubscriber, DoctrineEncryptSubsc
 
         foreach ($allProperties as $refProperty) {
             /** @var ReflectionProperty $refProperty */
-           foreach ($this->annotationReader->getPropertyAnnotations($refProperty) as $key => $annotation) {
+            foreach ($this->annotationReader->getPropertyAnnotations($refProperty) as $key => $annotation) {
                 if (in_array(get_class($annotation), $this->annotationArray)) {
                     $refProperty->setAccessible(true);
                     $encryptedFields[] = $refProperty;

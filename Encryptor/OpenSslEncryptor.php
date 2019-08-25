@@ -130,8 +130,7 @@ class OpenSslEncryptor implements EncryptorInterface
     private function getSecretKey()
     {
         if (null === $this->secretKey) {
-            throw new Exception('The configuration "encrypt_key" is missing.
-            Use cli command "php bin/console encrypt:genkey" to create a key.');
+            throw new Exception('The configuration "encrypt_key" is missing. Use cli command "php bin/console encrypt:genkey" to create a key.');
         }
 
         // Decode the key
