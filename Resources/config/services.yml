@@ -93,3 +93,18 @@ services:
       - '%atournayre_toolbox.crud_controller.delete.form_button_label%'
     tags:
       - { name: form.type }
+
+  Atournayre\ToolboxBundle\Service\Insee\InseeToken:
+    class: Atournayre\ToolboxBundle\Service\Insee\InseeToken
+    arguments:
+      - '%env(INSEE_CONSUMER_KEY)%'
+      - '%env(INSEE_CONSUMER_SECRET)%'
+
+  Atournayre\ToolboxBundle\Service\Insee\InseeSirene:
+    class: Atournayre\ToolboxBundle\Service\Insee\InseeSirene
+
+  Atournayre\ToolboxBundle\Service\Insee\InseeValidator:
+    class: Atournayre\ToolboxBundle\Service\Insee\InseeValidator
+    arguments:
+      - '@Atournayre\ToolboxBundle\Service\Insee\InseeToken'
+      - '@Atournayre\ToolboxBundle\Service\Insee\InseeSirene'
