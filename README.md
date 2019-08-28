@@ -4,24 +4,43 @@
 
 ## Services
 
-| Services              | Description                                                                        |
-|---                    |---                                                                                 |
-| Array                 | Array manipulation (shortcuts for core functions, usage of symfony/property-access |
-| CRUD Controllers      | Only Create and Delete controllers for the moment                                  |
-| Date                  | Carbon with additional methods                                                     |
-| Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions)   |
-| Email                 | Send mail using Swiftmailer                                                        |
-| Encrypt               | Encrypt/Decrypt datas                                                              |
-| Excel                 | Create and manage Excel files                                                      |
-| File                  | Create and manage files                                                            |
-| Form themes           | Form themes (Bootstrap 3, Materialize                                              |
-| Google                | Connect to Google Calendar API                                                     |
-| IBAN                  | Form, data validation, encryption                                                  |
-| Maintenance           | Activate/Desactivate maintenance for your application                              |
-| Numbering             | Manage numbering (for invoices and more                                            |
-| PDF                   | Integration of Html2Pdf                                                            |
-| PDF Merger            | Combine PDFs                                                                       |
-| SIREN/SIRET           | Use INSEE API to check SIREN/SIRET informations                                    |
+| Services              | Description                                                                          |
+|---                    |---                                                                                   |
+| Amount                | Pass an out of taxes amount, a VAT percent or not and get all parts of an amount.    |
+| Array                 | Array manipulation (shortcuts for core functions, usage of symfony/property-access). |
+| CRUD Controllers      | Only Create and Delete controllers for the moment.                                   |
+| Date                  | Carbon with additional methods.                                                      |
+| Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions).    |
+| Email                 | Send mail using Swiftmailer.                                                         |
+| Encrypt               | Encrypt/Decrypt datas.                                                               |
+| Excel                 | Create and manage Excel files.                                                       |
+| File                  | Create and manage files.                                                             |
+| Form themes           | Form themes (Bootstrap 3, Materialize).                                              |
+| Google                | Connect to Google Calendar API.                                                      |
+| IBAN                  | Form, data validation, encryption.                                                   |
+| Maintenance           | Activate/Desactivate maintenance for your application.                               |
+| Numbering             | Manage numbering (for invoices and more).                                            |
+| PDF                   | Integration of Html2Pdf.                                                             |
+| PDF Merger            | Combine PDFs.                                                                        |
+| SIREN/SIRET           | Use INSEE API to check SIREN/SIRET informations.                                     |
+
+## Amount
+
+Use `integer` only.
+
+```php
+<?php
+// 12.34 => 1234
+$amountWithoutTaxes = new \Atournayre\ToolboxBundle\Service\Amount\Amount(1234);
+$amountWithoutTaxes->getPartsWithoutTaxes();
+
+// 12.34 => 1234
+// 20 % => 20 
+$amountWithTaxes = new \Atournayre\ToolboxBundle\Service\Amount\Amount(1234, 20);
+$amountWithTaxes->getPartsWithTaxes();
+
+```
+
 
 ## CRUD Controllers
 Form basics CRUD operations, use this controllers with `$this->forward()`

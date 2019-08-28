@@ -47,7 +47,7 @@
     "ext-openssl": "*"
   },
   "require-dev": {
-    "symfony/phpunit-bridge": "^4.2",
+    "symfony/phpunit-bridge": "^4.3",
     "behat/behat": "^3.5",
     "doctrine/doctrine-fixtures-bundle": "^3.2",
     "infection/infection": "^0.13.4",
