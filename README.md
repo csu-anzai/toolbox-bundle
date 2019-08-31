@@ -19,6 +19,7 @@
 | Google                | Connect to Google Calendar API.                                                      |
 | IBAN                  | Form, data validation, encryption.                                                   |
 | Maintenance           | Activate/Desactivate maintenance for your application.                               |
+| Number                | Manage integer and float.                                                            |
 | Numbering             | Manage numbering (for invoices and more).                                            |
 | PDF                   | Integration of Html2Pdf.                                                             |
 | PDF Merger            | Combine PDFs.                                                                        |
@@ -131,6 +132,46 @@ maintenance:
     title: YOUR_TITLE #default Maintenance
     content: YOUR_TWIG #default null
 ```
+## Number
+
+Database should only store integers, so you have to convert int to float and vice versa.
+
+Convert Integer to Float
+```php
+<?php
+use Atournayre\ToolboxBundle\Service\Number\Number;
+
+$number = new Number();
+$float = $number->intToFloat(1234); // $float = 12.34
+```
+
+Convert Float To Integer
+```php
+<?php
+use Atournayre\ToolboxBundle\Service\Number\Number;
+
+$number = new Number();
+$integer = $number->floatToInt(12.34); // $integer = 1234
+```
+
+Convert Null To Float, because sometimes a value could be null
+```php
+<?php
+use Atournayre\ToolboxBundle\Service\Number\NumberNullable;
+
+$number = new NumberNullable();
+$float = $number->intToFloat(null); // $float = 0
+```
+
+Convert Null To Integer, because sometimes a value could be null
+```php
+<?php
+use Atournayre\ToolboxBundle\Service\Number\NumberNullable;
+
+$number = new NumberNullable();
+$integer = $number->floatToInt(null); // $integer = 0
+```
+
 ## Numbering
 
 For `pad_type` authorized values, see [https://www.php.net/manual/fr/function.str-pad.php](https://www.php.net/manual/fr/function.str-pad.php)
