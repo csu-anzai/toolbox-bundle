@@ -163,3 +163,8 @@ services:
     tags:
       - { name: doctrine.repository_service }
 
+  Atournayre\ToolboxBundle\Service\Number\Number:
+    class: Atournayre\ToolboxBundle\Service\Number\Number
+
+  Atournayre\ToolboxBundle\Service\Number\NumberNullable:
+    class: Atournayre\ToolboxBundle\Service\Number\NumberNullable
