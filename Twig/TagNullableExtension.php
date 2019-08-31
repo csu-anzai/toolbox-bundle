@@ -2,12 +2,11 @@
 
 namespace Atournayre\ToolboxBundle\Twig;
 
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
+use Twig\Extension\ExtensionInterface;
 use Twig_Function;
 
-// TODO Tag extension interface (Bootstrap, MAterialize)
-
-class TagNullableExtension extends Twig_Extension
+class TagNullableExtension extends AbstractExtension implements ExtensionInterface
 {
     /**
      * @return array

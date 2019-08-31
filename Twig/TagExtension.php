@@ -2,10 +2,11 @@
 
 namespace Atournayre\ToolboxBundle\Twig;
 
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
+use Twig\Extension\ExtensionInterface;
 use Twig_Function;
 
-class TagExtension extends Twig_Extension
+class TagExtension extends AbstractExtension implements ExtensionInterface
 {
     /**
      * @return array
