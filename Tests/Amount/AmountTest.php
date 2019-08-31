@@ -16,13 +16,13 @@ class AmountTest extends TestCase
 
     public function testValueAddedTax()
     {
-        $amount = new Amount(1000, 20);
+        $amount = new Amount(1000, 2000);
         $this->assertEquals(200, $amount->getValueAddedTax());
     }
 
     public function testTaxIncluded()
     {
-        $amount = new Amount(1000, 20);
+        $amount = new Amount(1000, 2000);
         $this->assertEquals(1200, $amount->getTaxIncluded());
     }
 
@@ -102,7 +102,7 @@ class AmountTest extends TestCase
      */
     public function testAmountParts()
     {
-        $amount = new Amount(1000, 20);
+        $amount = new Amount(1000, 2000);
         $this->assertEquals(1000, $amount->getOutOfTaxes());
         $this->assertEquals(200, $amount->getValueAddedTax());
         $this->assertEquals(1200, $amount->getTaxIncluded());
@@ -132,14 +132,14 @@ class AmountTest extends TestCase
 
     public function testGetDiscountInValueFromDiscountAmountWithTaxes()
     {
-        $amount = new Amount(1000, 20);
+        $amount = new Amount(1000, 2000);
         $amount->setDiscountPercent(1000);
         $this->assertEquals(100, $amount->getDiscountInValue());
     }
 
     public function testGetPartsWithTaxes()
     {
-        $amount = new Amount(1000, 20);
+        $amount = new Amount(1000, 2000);
         $partsWithTaxes = $amount->getPartsWithTaxes();
         $this->assertArrayHasKey('outOfTaxes', $partsWithTaxes);
         $this->assertArrayHasKey('valueAddedTax', $partsWithTaxes);
@@ -154,7 +154,7 @@ class AmountTest extends TestCase
      */
     public function testGetPartsWithTaxesWithValues()
     {
-        $amount = new Amount(1000, 20);
+        $amount = new Amount(1000, 2000);
         $partsWithTaxes = $amount->getPartsWithTaxes();
         $this->assertEquals(1000, $partsWithTaxes['outOfTaxes']);
         $this->assertEquals(200, $partsWithTaxes['valueAddedTax']);
@@ -172,5 +172,11 @@ class AmountTest extends TestCase
         $this->assertNull($partsWithTaxes['discount']);
         $this->assertNull($partsWithTaxes['discountPercent']);
         $this->assertEquals(1000, $partsWithTaxes['discountedAmount']);
+    }
+
+    public function testValueAddedFivePointFive()
+    {
+        $amount = new Amount(1000, 550);
+        $this->assertEquals(55, $amount->getValueAddedTax());
     }
 }

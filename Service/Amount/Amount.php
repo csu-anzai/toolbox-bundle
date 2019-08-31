@@ -81,7 +81,8 @@ class Amount
      */
     public function getValueAddedTax(): int
     {
-        $this->valueAddedTax = $this->outOfTaxes * ($this->valueAddedTaxPercent / 100);
+        $this->valueAddedTax
+            = $this->outOfTaxes * $this->convertIntegerPercentToFloatPercent($this->valueAddedTaxPercent);
 
         return $this->valueAddedTax;
     }
@@ -187,7 +188,7 @@ class Amount
         }
 
         if (null !== $this->discountPercent) {
-            return $this->outOfTaxes * ($this->discountPercent / 100 / 100);
+            return $this->outOfTaxes * $this->convertIntegerPercentToFloatPercent($this->discountPercent);
         }
 
         return 0;
@@ -220,5 +221,15 @@ class Amount
             'discountPercent' => $this->getDiscountPercent(),
             'discountedAmount' => $this->getDiscountedAmount(),
         ];
+    }
+
+    /**
+     * @param int $integerPercent
+     *
+     * @return float
+     */
+    public function convertIntegerPercentToFloatPercent(int $integerPercent): float
+    {
+        return $integerPercent / 100 / 100;
     }
 }
