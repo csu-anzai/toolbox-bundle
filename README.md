@@ -24,6 +24,8 @@
 | PDF                   | Integration of Html2Pdf.                                                             |
 | PDF Merger            | Combine PDFs.                                                                        |
 | SIREN/SIRET           | Use INSEE API to check SIREN/SIRET informations.                                     |
+| Token                 | Generate unique Token date based (for url ...) comes with Twig extension.            |
+| Twig                  | Usefull function for common uses.                                                    |
 
 ## Amount
 

@@ -1,4 +1,5 @@
 services:
+  # SERVICES
   Atournayre\ToolboxBundle\Service\Date\DateService: '@atournayre_toolbox.date'
 
   Atournayre\ToolboxBundle\Service\Excel\Excel: '@atournayre_toolbox.excel'
@@ -53,46 +54,8 @@ services:
       - '%atournayre_toolbox.numbering.prefix%'
       - '%atournayre_toolbox.numbering.suffix%'
 
-  Atournayre\ToolboxBundle\EventListener\MaintenanceListener:
-    class: Atournayre\ToolboxBundle\EventListener\MaintenanceListener
-    arguments:
-      - '@twig'
-      - '@doctrine.orm.default_entity_manager'
-      - '%atournayre_toolbox.maintenance%'
-    tags:
-      - { name: kernel.event_listener, event: kernel.request, method: 'onKernelRequest' }
-
-  Atournayre\ToolboxBundle\Repository\ParameterRepository:
-    class: Atournayre\ToolboxBundle\Repository\ParameterRepository
-    arguments:
-      - '@doctrine'
-    tags:
-      - { name: doctrine.repository_service }
-
   Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService:
     class: Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService
-
-  Atournayre\ToolboxBundle\Command\MaintenanceCommand:
-    class: Atournayre\ToolboxBundle\Command\MaintenanceCommand
-    arguments:
-      - '@doctrine.orm.default_entity_manager'
-      - '@Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService'
-    tags:
-      - { name: console.command, command: maintenance }
-
-  Atournayre\ToolboxBundle\Command\EnvironmentCommand:
-    class: Atournayre\ToolboxBundle\Command\EnvironmentCommand
-    arguments:
-      - '%atournayre_toolbox.environment_commands%'
-    tags:
-      - { name: console.command, command: init }
-
-  Atournayre\ToolboxBundle\Form\ConfirmationType:
-    class: Atournayre\ToolboxBundle\Form\ConfirmationType
-    arguments:
-      - '%atournayre_toolbox.crud_controller.delete.form_button_label%'
-    tags:
-      - { name: form.type }
 
   Atournayre\ToolboxBundle\Service\Insee\InseeToken:
     class: Atournayre\ToolboxBundle\Service\Insee\InseeToken
@@ -121,28 +84,75 @@ services:
     autowire: false
     autoconfigure: false
 
+  Atournayre\ToolboxBundle\Service\Number\Number:
+    class: Atournayre\ToolboxBundle\Service\Number\Number
+
+  Atournayre\ToolboxBundle\Service\Number\NumberNullable:
+    class: Atournayre\ToolboxBundle\Service\Number\NumberNullable
+
+  Atournayre\ToolboxBundle\Service\Token\Token:
+    class: Atournayre\ToolboxBundle\Service\Token\Token
+
+  # EVENT LISTENER
+  Atournayre\ToolboxBundle\EventListener\MaintenanceListener:
+    class: Atournayre\ToolboxBundle\EventListener\MaintenanceListener
+    arguments:
+      - '@twig'
+      - '@doctrine.orm.default_entity_manager'
+      - '%atournayre_toolbox.maintenance%'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: 'onKernelRequest' }
+
+  # REPOSITORY
+  Atournayre\ToolboxBundle\Repository\ParameterRepository:
+    class: Atournayre\ToolboxBundle\Repository\ParameterRepository
+    arguments:
+      - '@doctrine'
+    tags:
+      - { name: doctrine.repository_service }
+
+  Atournayre\ToolboxBundle\Repository\IbanRepository:
+    class: Atournayre\ToolboxBundle\Repository\IbanRepository
+    arguments:
+      - '@doctrine'
+    tags:
+      - { name: doctrine.repository_service }
+
+  # COMMAND
+  Atournayre\ToolboxBundle\Command\MaintenanceCommand:
+    class: Atournayre\ToolboxBundle\Command\MaintenanceCommand
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
+      - '@Atournayre\ToolboxBundle\Service\Maintenance\MaintenanceService'
+    tags:
+      - { name: console.command, command: maintenance }
+
+  Atournayre\ToolboxBundle\Command\EnvironmentCommand:
+    class: Atournayre\ToolboxBundle\Command\EnvironmentCommand
+    arguments:
+      - '%atournayre_toolbox.environment_commands%'
+    tags:
+      - { name: console.command, command: init }
+
+  Atournayre\ToolboxBundle\Command\GenKeyCommand:
+    tags:
+      -  { name: console.command }
+
+  # FORM
+  Atournayre\ToolboxBundle\Form\ConfirmationType:
+    class: Atournayre\ToolboxBundle\Form\ConfirmationType
+    arguments:
+      - '%atournayre_toolbox.crud_controller.delete.form_button_label%'
+    tags:
+      - { name: form.type }
+
+  # SUBSCRIBER
   Atournayre\ToolboxBundle\Subscribers\EncryptEventSubscriber:
     arguments:
       - '@atournayre_toolbox.encryptor.service'
       - '%atournayre_toolbox.encrypt.disabled%'
     tags:
       - { name: kernel.event_subscriber, connection: default }
-
-  atournayre_toolbox.encryptor.service:
-    class: Atournayre\ToolboxBundle\Encryptor\OpenSslEncryptor
-    arguments:
-      - '%atournayre_toolbox.encrypt.key%'
-
-  Atournayre\ToolboxBundle\Encryptor\EncryptorInterface: '@atournayre_toolbox.encryptor.service'
-
-  Atournayre\ToolboxBundle\Twig\EncryptExtension:
-    arguments:
-      - '@Atournayre\ToolboxBundle\Encryptor\EncryptorInterface'
-    tags: ['twig.extension']
-
-  Atournayre\ToolboxBundle\Command\GenKeyCommand:
-    tags:
-      -  { name: console.command }
 
   atournayre_toolbox.doctrine_encrypt.subscribers:
     class: Atournayre\ToolboxBundle\Subscribers\DoctrineEncryptSubscriber
@@ -156,15 +166,30 @@ services:
 
   Atournayre\ToolboxBundle\Subscribers\DoctrineEncryptSubscriberInterface: '@atournayre_toolbox.doctrine_encrypt.subscribers'
 
-  Atournayre\ToolboxBundle\Repository\IbanRepository:
-    class: Atournayre\ToolboxBundle\Repository\IbanRepository
+  # ENCRYPTOR
+  atournayre_toolbox.encryptor.service:
+    class: Atournayre\ToolboxBundle\Encryptor\OpenSslEncryptor
     arguments:
-      - '@doctrine'
-    tags:
-      - { name: doctrine.repository_service }
+      - '%atournayre_toolbox.encrypt.key%'
 
-  Atournayre\ToolboxBundle\Service\Number\Number:
-    class: Atournayre\ToolboxBundle\Service\Number\Number
+  Atournayre\ToolboxBundle\Encryptor\EncryptorInterface: '@atournayre_toolbox.encryptor.service'
 
-  Atournayre\ToolboxBundle\Service\Number\NumberNullable:
-    class: Atournayre\ToolboxBundle\Service\Number\NumberNullable
+  # TWIG
+  Atournayre\ToolboxBundle\Twig\EncryptExtension:
+    arguments:
+      - '@Atournayre\ToolboxBundle\Encryptor\EncryptorInterface'
+    tags: ['twig.extension']
+
+  Atournayre\ToolboxBundle\Twig\TokenExtension:
+    class: Atournayre\ToolboxBundle\Twig\TokenExtension
+    arguments:
+      - '@Atournayre\ToolboxBundle\Service\Token\Token'
+    tags: ['twig.extension']
+
+  Atournayre\ToolboxBundle\Twig\TagExtension:
+    class: Atournayre\ToolboxBundle\Twig\TagExtension
+    tags: ['twig.extension']
+
+  Atournayre\ToolboxBundle\Twig\TagNullableExtension:
+    class: Atournayre\ToolboxBundle\Twig\TagNullableExtension
+    tags: ['twig.extension']
