@@ -24,6 +24,7 @@
 | PDF                   | Integration of Html2Pdf.                                                             |
 | PDF Merger            | Combine PDFs.                                                                        |
 | SIREN/SIRET           | Use INSEE API to check SIREN/SIRET informations.                                     |
+| Twig                  | Usefull function for common uses.                                                    |
 
 ## Amount
 
