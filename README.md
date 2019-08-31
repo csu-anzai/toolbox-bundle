@@ -8,6 +8,7 @@
 |---                    |---                                                                                   |
 | Amount                | Pass an out of taxes amount, a VAT percent or not and get all parts of an amount.    |
 | Array                 | Array manipulation (shortcuts for core functions, usage of symfony/property-access). |
+| Calculation           | Revert sign of number.                                                               |
 | CRUD Controllers      | Only Create and Delete controllers for the moment.                                   |
 | Date                  | Carbon with additional methods.                                                      |
 | Doctrine 2 extensions | [A set of Doctrine 2 extensions](https://github.com/beberlei/DoctrineExtensions).    |
@@ -33,17 +34,27 @@ Use `integer` only.
 
 ```php
 <?php
+use Atournayre\ToolboxBundle\Service\Amount\Amount;
+
 // 12.34 => 1234
-$amountWithoutTaxes = new \Atournayre\ToolboxBundle\Service\Amount\Amount(1234);
+$amountWithoutTaxes = new Amount(1234);
 $amountWithoutTaxes->getPartsWithoutTaxes();
 
 // 12.34 => 1234
 // 20 % => 20 
-$amountWithTaxes = new \Atournayre\ToolboxBundle\Service\Amount\Amount(1234, 20);
+$amountWithTaxes = new Amount(1234, 20);
 $amountWithTaxes->getPartsWithTaxes();
 
 ```
 
+## Calculation
+```php
+<?php
+use Atournayre\ToolboxBundle\Service\Calculation\Calculation;
+
+$calculation = new Calculation();
+$calculation->invertSign(1234); // -1234
+```
 
 ## CRUD Controllers
 Form basics CRUD operations, use this controllers with `$this->forward()`
@@ -52,32 +63,33 @@ Minimal example :
 
 ```php
 <?php
+use Atournayre\ToolboxBundle\Controller\DeleteController;
 
-    return $this->forward(
-        DeleteController::ACTION_DELETE_JSON,
-        [
-            'objectClass' => User::class,
-            'entityId' => $id,
-        ]
-    );
+return $this->forward(
+    DeleteController::ACTION_DELETE_JSON,
+    [
+        'objectClass' => User::class,
+        'entityId' => $id,
+    ]
+);
 ```
 
 Full example :
 
 ```php
 <?php
+use Atournayre\ToolboxBundle\Controller\DeleteController;
 
-    return $this->forward(
-        DeleteController::ACTION_DELETE_JSON,
-        [
-            'objectClass' => User::class,
-            'entityId' => $id,
-            'successMessage' => 'My custom success message.',
-            'confirmationMessage' => 'Are you really really sure?',
-            'errorMessage' => 'My custom error message.',
-        ]
-    );
-
+return $this->forward(
+    DeleteController::ACTION_DELETE_JSON,
+    [
+        'objectClass' => User::class,
+        'entityId' => $id,
+        'successMessage' => 'My custom success message.',
+        'confirmationMessage' => 'Are you really really sure?',
+        'errorMessage' => 'My custom error message.',
+    ]
+);
 ```
 
 ## Environments commands
@@ -118,7 +130,7 @@ Using form, validation is automatic using DataTransformer, an error will be thro
 ### Encryption
 Datas are crypted using your application secret.
 
-**/!\ Be careful, changing your secret make all datas un recoverable.**
+**/!\ Be careful, changing your secret make all datas unrecoverable.**
 
 ## Maintenance
 
@@ -138,40 +150,25 @@ maintenance:
 
 Database should only store integers, so you have to convert int to float and vice versa.
 
-Convert Integer to Float
 ```php
 <?php
 use Atournayre\ToolboxBundle\Service\Number\Number;
+use Atournayre\ToolboxBundle\Service\Number\NumberNullable;
 
 $number = new Number();
+$numberNullable = new NumberNullable();
+
+// Convert Integer to Float
 $float = $number->intToFloat(1234); // $float = 12.34
-```
 
-Convert Float To Integer
-```php
-<?php
-use Atournayre\ToolboxBundle\Service\Number\Number;
-
-$number = new Number();
+// Convert Float To Integer
 $integer = $number->floatToInt(12.34); // $integer = 1234
-```
 
-Convert Null To Float, because sometimes a value could be null
-```php
-<?php
-use Atournayre\ToolboxBundle\Service\Number\NumberNullable;
+// Convert Null To Float, because sometimes a value could be null
+$float = $numberNullable->intToFloat(null); // $float = 0
 
-$number = new NumberNullable();
-$float = $number->intToFloat(null); // $float = 0
-```
-
-Convert Null To Integer, because sometimes a value could be null
-```php
-<?php
-use Atournayre\ToolboxBundle\Service\Number\NumberNullable;
-
-$number = new NumberNullable();
-$integer = $number->floatToInt(null); // $integer = 0
+// Convert Null To Integer, because sometimes a value could be null
+$integer = $numberNullable->floatToInt(null); // $integer = 0
 ```
 
 ## Numbering
@@ -203,14 +200,13 @@ pdf:
 
 ```php
 <?php
-function merge(array $filePaths): string
-{
-    $mergeFilePath = '~/merge.pdf';
-    $pdfMerger = new Atournayre\ToolboxBundle\Service\Pdf\Merger\PdfMerger();
-    $pdfMerger->addDocuments($filePaths);
-    $pdfMerger->merge($mergeFilePath);
-    return $mergeFilePath;
-}
+use Atournayre\ToolboxBundle\Service\Pdf\Merger\PdfMerger;
+
+$filePaths = [];
+$mergeFilePath = '~/merge.pdf';
+$pdfMerger = new PdfMerger();
+$pdfMerger->addDocuments($filePaths);
+$pdfMerger->merge($mergeFilePath);
 ```
 
 ## SIREN/SIRET
@@ -224,29 +220,21 @@ INSEE_CONSUMER_SECRET = XXXXXXXXXX
 
 ### Validation
 
-To validate a SIREN
 ```php
 <?php
-use Atournayre\ToolboxBundle\Service\Insee;
+use Atournayre\ToolboxBundle\Service\Insee\InseeToken;
+use Atournayre\ToolboxBundle\Service\Insee\InseeSirene;
+use Atournayre\ToolboxBundle\Service\Insee\InseeSirenValidator;
 
 // Use Dependency Injection for lines below.
-$inseeToken = new InseeToken(INSEE_CONSUMER_KEY, INSEE_CONSUMER_SECRET);
-$inseeSirene = new InseeSirene();
-$validator = new InseeSirenValidator($inseeToken, $inseeSirene);
+$validator = new InseeSirenValidator(
+    new InseeToken(INSEE_CONSUMER_KEY, INSEE_CONSUMER_SECRET), 
+    new InseeSirene()
+);
 
+// To validate a SIREN
 $validator->validate('000000000');
-```
 
-To validate a SIRET
-```php
-<?php
-
-use Atournayre\ToolboxBundle\Service\Insee;
-
-// Use Dependency Injection for lines below.
-$inseeToken = new InseeToken(INSEE_CONSUMER_KEY, INSEE_CONSUMER_SECRET);
-$inseeSirene = new InseeSirene();
-$validator = new InseeSiretValidator($inseeToken, $inseeSirene);
-
+// To validate a SIRET
 $validator->validate('00000000000000');
 ```
