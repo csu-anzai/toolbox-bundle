@@ -41,8 +41,8 @@ $amountWithoutTaxes = new Amount(1234);
 $amountWithoutTaxes->getPartsWithoutTaxes();
 
 // 12.34 => 1234
-// 20 % => 20 
-$amountWithTaxes = new Amount(1234, 20);
+// 20 % => 2000 / 5.50 % => 550
+$amountWithTaxes = new Amount(1234, 2000);
 $amountWithTaxes->getPartsWithTaxes();
 
 ```
