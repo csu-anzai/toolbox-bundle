@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddressIndividualTypeType extends AbstractType
+class AddressProfessionalType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,12 +17,12 @@ class AddressIndividualTypeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->get('line1')->setAttribute('label', 'Civilité/Titre Prénom Nom')
-            ->get('line2')->setAttribute('label', 'N° appartement ou de boite à lettre – Etage – Couloir - Escalier')
+            ->get('line1')->setAttribute('label', 'Raison Sociale/Dénomination commerciale')
+            ->get('line2')->setAttribute('label', 'Identité du destinataire/Service')
             ->get('line3')->setAttribute('label', 'Entrée - Bâtiment - Immeuble - Résidence ...')
             ->get('line4')->setAttribute('label', 'Rue - Avenue - Hameau ...')
-            ->get('line5')->setAttribute('label', 'Poste restante - BP - Lieu-dit ...')
-            ->get('city')->setAttribute('label', 'Code postal et Localite')
+            ->get('line5')->setAttribute('label', 'BP, TSA ...')
+            ->get('city')->setAttribute('label', 'Code postal et Localite/Code cedex')
             ;
     }
 

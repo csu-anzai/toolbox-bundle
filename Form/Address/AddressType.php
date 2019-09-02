@@ -3,6 +3,8 @@
 namespace Atournayre\ToolboxBundle\Form\Address;
 
 use Atournayre\ToolboxBundle\Entity\Address;
+use Atournayre\ToolboxBundle\Repository\CityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -75,14 +77,14 @@ class AddressType extends AbstractType
                 ]
             )
             ->add(
-                'line6',
-                TextType::class,
+                'city',
+                EntityType::class,
                 [
                     'label' => 'Line 6',
                     'required' => false,
-                    'attr' => [
-                        'maxlength' => self::LINE_MAXLENGTH,
-                    ]
+                    'query_builder' => function(CityRepository $cityRepository) {
+                        return $cityRepository->createQueryBuilder('c');
+                    },
                 ]
             )
         ;
