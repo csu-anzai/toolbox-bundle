@@ -68,4 +68,16 @@ class AddressTransformer
         $string = str_replace('\'', ' ', $string);
         return str_replace(['[', '.', ',', '\\', '/', '#', '\'', '!', '$', '%', '^', '&', '*', ';', ':', '{', '}', '=', '-', ',', '_', '`', '~', '(', ')', ']'], '', $string);
     }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    public function cleanup(string $string): string
+    {
+        $cleanup = $this->cleanPunctuation($string);
+        $cleanup = $this->convertBisAndCo($cleanup);
+        return $this->convertMultipleNumbers($cleanup);
+    }
 }

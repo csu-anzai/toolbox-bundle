@@ -98,9 +98,6 @@ class AddressTransformerTest extends TestCase
     public function testFullCleanUp()
     {
         $addressTransformer = new AddressTransformer();
-        $cleanup = $addressTransformer->cleanPunctuation('4 à 8, rue de l\'isle');
-        $cleanup = $addressTransformer->convertBisAndCo($cleanup);
-        $cleanup = $addressTransformer->convertMultipleNumbers($cleanup);
-        $this->assertEquals('4 rue de l isle', $cleanup);
+        $this->assertEquals('4 rue de l isle', $addressTransformer->cleanup('4 à 8, rue de l\'isle'));
     }
 }
