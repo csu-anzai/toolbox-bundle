@@ -134,27 +134,27 @@ class AddressFormatter
         $address = [];
 
         if (null !== $addressDTO->line1) {
-            $address['line1'] = $this->line1($addressDTO->line1);
+            array_push($address, $this->line1($addressDTO->line1));
         }
 
         if (null !== $addressDTO->line2) {
-            $address['line2'] = $addressDTO->line2;
+            array_push($address, $this->line2($addressDTO->line2));
         }
 
         if (null !== $addressDTO->line3) {
-            $address['line3'] = $addressDTO->line3;
+            array_push($address, $this->line3($addressDTO->line3));
         }
 
         if (null !== $addressDTO->line4) {
-            $address['line4'] = $this->line4($addressDTO->line4);
+            array_push($address, $this->line4($addressDTO->line4));
         }
 
         if (null !== $addressDTO->line5) {
-            $address['line5'] = $addressDTO->line5;
+            array_push($address, $this->line5($addressDTO->line5));
         }
 
         if (null !== $addressDTO->line6) {
-            $address['line6'] = $this->line6($addressDTO->line6);
+            array_push($address, $this->line6($addressDTO->line6));
         }
 
         return $address;
