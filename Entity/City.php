@@ -34,7 +34,7 @@ class City
     /**
      * @ORM\Column(type="string", length=60)
      */
-    private $delivery_name;
+    private $deliveryName;
 
     /**
      * @ORM\Column(type="string", length=60)
@@ -127,17 +127,17 @@ class City
      */
     public function getDeliveryName()
     {
-        return $this->delivery_name;
+        return $this->deliveryName;
     }
 
     /**
-     * @param mixed $delivery_name
+     * @param mixed $deliveryName
      *
      * @return City
      */
-    public function setDeliveryName($delivery_name)
+    public function setDeliveryName($deliveryName)
     {
-        $this->delivery_name = $delivery_name;
+        $this->deliveryName = $deliveryName;
         return $this;
     }
 
